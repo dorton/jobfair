@@ -16,6 +16,45 @@ RailsAdmin.config do |config|
 
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
+  RailsAdmin.config do |config|
+    config.model 'Event' do
+      list do
+        configure :id do
+          hide
+        end
+        configure :created_at do
+          hide
+        end
+        configure :updated_at do
+          hide
+        end
+      end
+    end
+  end
+
+  RailsAdmin.config do |config|
+    config.model 'User' do
+      list do
+        configure :id do
+          hide
+        end
+        configure :created_at do
+          hide
+        end
+        configure :updated_at do
+          hide
+        end
+        configure :phone do
+          hide
+        end
+        configure :note do
+          hide
+        end
+      end
+    end
+  end
+
+
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
