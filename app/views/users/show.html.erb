@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <meta http-equiv="refresh" content="2;url=/"
+<% end %>
+
+
 <%- model_class = User -%>
 <div class="page-header">
   <h1>Success! We will connect soon!</h1>
@@ -8,10 +13,13 @@
   <dd><%= @user.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
-  <dd><%= @user.phone %></dd>
+
+
 </dl>
 </h2>
+
+<% if admin_signed_in? %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               users_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -21,3 +29,4 @@
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+<%end%>

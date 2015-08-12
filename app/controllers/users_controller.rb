@@ -26,6 +26,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    @user.event = Event.find_by date: Date.today
+
 
     respond_to do |format|
       if @user.save
@@ -61,6 +63,7 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
