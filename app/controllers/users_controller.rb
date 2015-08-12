@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    @user.event = Event.find_by date: Date.today
+    @user.event = Event.find_by date: Time.current.strftime('%Y-%m-%d')
 
 
     respond_to do |format|
