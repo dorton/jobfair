@@ -1,10 +1,12 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h1 align ="center">Learn More About The Iron Yard </h1>
+  <h1 align ="center">Welcome to The Iron Yard <%= @event %> </h1>
 </div>
 <div class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4"><%= render :partial => 'form' %></div>
-  <div class="col-md-4"></div>
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <h3>Please Sign In</h3>
+    <%= render :partial => 'form' %>
+  </div>
+  <div class="col-md-3"></div>
 </div>
-

@@ -11,11 +11,20 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @gif = ["http://i.giphy.com/TEFplLVRDMWBi.gif",
+            "http://i.giphy.com/WKhKazqZxORq0.gif",
+            "http://i.giphy.com/1HPzxMBCTvjMs.gif",
+            "http://i.giphy.com/9o67upvAnOqRy.gif",
+            "http://i.giphy.com/JQNM4AgN7lFUA.gif",
+            "http://i.giphy.com/vQ9JbgIWATcTS.gif",
+            "http://i.giphy.com/gdNlcJ1tAtiSI.gif",
+            "http://i.giphy.com/rgS5azacQACw8.gif"]
   end
 
   # GET /users/new
   def new
     @user = User.new
+    @event = Event.last.name.split("-").first
   end
 
   # GET /users/1/edit
@@ -73,6 +82,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :note, :event)
+      params.require(:user).permit(:name, :email, :phone, :note, :event, :interest, :company)
     end
 end
