@@ -31,26 +31,46 @@
     <%= error_span(@user[:email]) %>
   </div>
 
-<% if Event.last.name.include? "Demo Day" %>
 
   <div class="control-group">
     <%= f.label :interest, :class => 'control-label' %>
+
+<% if Event.last.name.include? "Demo Day" %>
     <div class="controls">
       <%= f.radio_button :interest, "I am interested in hiring a student." %>
       <%= f.label :interest, 'I am interested in hiring a student.' %>
     </div>
+<% else %>
+<% end %>
+
     <div class="controls">
-      <%= f.radio_button :interest, "I am interested in becoming a student." %>
-      <%= f.label :interest, 'I am interested in becoming a student.' %>
+      <%= f.radio_button :interest, "I am interested in possibly becoming a student." %>
+      <%= f.label :interest, 'I am interested in possibly becoming a student.' %>
     </div>
     <div class="controls">
       <%= f.radio_button :interest, 'I am interested in learning more about The Iron Yard.' %>
       <%= f.label :interest, 'I am interested in learning more about The Iron Yard.' %>
     </div>
+
+<% if Event.last.name.include? "Demo Day" %>
     <div class="controls">
-      <%= f.radio_button :interest, "I am interested in learning more about The Iron Yard." %>
-      <%= f.label :interest, 'I am interested in learning more about The Iron Yard.' %>
+      <%= f.radio_button :interest, 'I\'m here to support a friend or family member.' %>
+      <%= f.label :interest, 'I\'m here to support a friend or family member.' %>
     </div>
+    <div class="controls">
+      <%= f.radio_button :interest, 'I\'m just here for the free tacos.' %>
+      <%= f.label :interest, 'I\'m just here for the free tacos.' %>
+    </div>
+<% else %>
+<% end %>
+
+<% if Event.last.name.include? "Crash Course" %>
+    <div class="controls">
+      <%= f.radio_button :interest, "I'm just here for the free learnin\'." %>
+      <%= f.label :interest, 'I\'m just here for the free learnin\'.' %>
+    </div>
+<% else %>
+<% end %>
     <%= error_span(@user[:email]) %>
   </div>
 
@@ -61,8 +81,7 @@
     </div>
     <%= error_span(@user[:email]) %>
   </div>
-  <% else %>
-  <% end %>
+
 
   <br>
 
