@@ -28,6 +28,12 @@ RailsAdmin.config do |config|
         configure :updated_at do
           hide
         end
+        configure :user_id do
+          hide
+        end
+        configure :user_events do
+          hide
+        end
       end
     end
   end
@@ -48,6 +54,12 @@ RailsAdmin.config do |config|
           hide
         end
         configure :note do
+          hide
+        end
+        configure :event_id do
+          hide
+        end
+        configure :user_events do
           hide
         end
       end
