@@ -34,14 +34,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @event = Event.last
-    @user = @event.users.create(user_params)
-    # @user = User.new(user_params)
-    # @user.event = Event.find_by date: Time.current.strftime('%Y-%m-%d')
 
+    @user = User.where(email: user_params[:email]).first_or_initialize
 
     respond_to do |format|
-      if @user.save
+      if @user.update(user_params)
+        @user.events << Event.last unless @user.events.include?(Event.last)
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
