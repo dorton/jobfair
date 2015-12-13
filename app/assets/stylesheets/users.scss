@@ -1,3 +1,28 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* 
+@import "./_colors.scss";
+
+html {
+    border-left: 1em solid $iron-black;
+    border-right: 1em solid $iron-black;
+}
+body {
+    padding: 5em 1em;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+html::before, html::after {
+    content: '';
+    position: fixed;
+    display: inline-block;
+    width: 100%;
+    padding-top: 2em;
+    background-color: $iron-black;
+    left: 0;
+    z-index: 5;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+ */
