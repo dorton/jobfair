@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+
+  # get 'users/index' => 'users#index'
+  # get 'users/new' => 'users#new'
+  # get 'users/show' => 'users#show'
+  get '/users' => 'users#last'
+
   resources :users do
     get :autocomplete_user_event, :on => :collection
   end

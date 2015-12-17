@@ -1,0 +1,34 @@
+<h1>Last 30 Event Goers:</h1>
+<table class="table table-striped table-hover table-condensed">
+
+
+  <tr>
+    <th>
+      Name
+    </th>
+    <th>
+      Events
+    </th>
+    <th>
+      Interest
+    </th>
+  </tr>
+
+
+<% @lastusers.each do |user| %>
+  <tr>
+    <td>
+      <%= mail_to user.email, user.name %>
+    </td>
+    <td>
+    <% user.events.all.each do |event| %>
+      <%= event.name %><br>
+    <% end %>
+  </td>
+
+    <td>
+      <%= user.interest %>
+    </td>
+  </tr>
+<% end %>
+</table>

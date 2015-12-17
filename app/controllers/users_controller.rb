@@ -8,6 +8,11 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def last
+    @lastusers = User.last(30)
+
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
