@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def last
-    @lastusers = User.last(30)
+    @lastusers = User.all.sort_by{ |result| result.updated_at}
 
   end
 
