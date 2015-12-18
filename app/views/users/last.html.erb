@@ -18,7 +18,7 @@
 <% @lastusers.each do |user| %>
   <tr>
     <td>
-      <%= mail_to user.email, user.name %>
+      <%= mail_to user.email, user.name.titleize %>
     </td>
     <td>
     <% user.events.all.each do |event| %>

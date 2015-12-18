@@ -17,7 +17,7 @@
     <% event.users.each do |user| %>
       <tr>
         <td>
-          <%= user.name %>
+          <%= user.name.titleize %>
         </td>
         <td>
           <%= mail_to user.email %>
