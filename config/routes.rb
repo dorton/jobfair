@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # get 'users/new' => 'users#new'
   # get 'users/show' => 'users#show'
   get '/users' => 'users#last'
+  get '/events' => 'users#events'
 
   resources :users do
     get :autocomplete_user_event, :on => :collection

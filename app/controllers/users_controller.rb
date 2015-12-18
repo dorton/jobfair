@@ -13,6 +13,11 @@ class UsersController < ApplicationController
 
   end
 
+  def events
+    @events = Event.all
+  end
+
+
   # GET /users/1
   # GET /users/1.json
   def show

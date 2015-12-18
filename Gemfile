@@ -32,6 +32,8 @@ gem 'devise'
 
 gem 'rails_admin'
 
+gem 'faker'
+
 group :production do
   gem 'pg'
 end
