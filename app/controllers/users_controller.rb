@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def events
-    @events = Event.all
+    @events = Event.all.sort_by{ |result| result.created_at}.reverse
   end
 
 
