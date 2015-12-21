@@ -9,15 +9,15 @@ require 'faker'
 
 def create_event
   event = Event.new
-  event.name = Faker::Company.buzzword.titleize
-  event.date = Faker::Date.forward(40)
+  event.name = Faker::Company.bs.titleize
+  event.date = Faker::Date.backward(240)
   event.location = 'The Iron Yard'
   event.save
   event
 end
 
 
-10.times do
+13.times do
   create_event
 end
 
@@ -25,14 +25,14 @@ def create_user
   user = User.new
   user.name = Faker::Name.name
   user.email = Faker::Internet.email
-  user.interest = ['Interested in becomming a students', 'Interested in learning more about tiy', 'Just here for the free food/learning'].sample
+  user.interest = ['Interested in becomming a student', 'Interested in learning more about tiy', 'Just here for the free food/learning'].sample
   user.save
   user
 end
 
-100.times do
+150.times do
   user = create_user
-  (1..3).to_a.sample.times do
+  [1,1,1,1,2,3,4].sample.times do
     sample = Event.all.sample
     user.events << sample unless user.events.include?(sample)
   end

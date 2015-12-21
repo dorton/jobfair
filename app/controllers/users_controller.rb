@@ -14,13 +14,17 @@ class UsersController < ApplicationController
   end
 
   def events
-    @events = Event.all.sort_by{ |result| result.created_at}.reverse
+    @events = Event.all.sort_by{ |result| result.date}.reverse
   end
 
 
+  def event
+    @event = Event.find(params[:id])
+  end
+
   # GET /users/1
   # GET /users/1.json
-  def show
+  def success
     @gif = ["http://i.giphy.com/TEFplLVRDMWBi.gif",
             "http://i.giphy.com/WKhKazqZxORq0.gif",
             "http://i.giphy.com/1HPzxMBCTvjMs.gif",
@@ -29,6 +33,11 @@ class UsersController < ApplicationController
             "http://i.giphy.com/vQ9JbgIWATcTS.gif",
             "http://i.giphy.com/gdNlcJ1tAtiSI.gif",
             "http://i.giphy.com/rgS5azacQACw8.gif"]
+  end
+
+
+  def show
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -45,26 +54,33 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
 
+require 'clearbit'
+
+Clearbit.key = 'c7a99ea75c8e0b5224b6bc0296d87fc0'
+
     @user = User.where(email: user_params[:email]).first_or_initialize
+    response = Clearbit::Enrichment.find(email: @user.email, stream: true)
 
     respond_to do |format|
       if @user.update(user_params)
         @user.events << Event.last unless @user.events.include?(Event.last)
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        @user.update_attributes(:avatar => response.person.avatar)
+        @user.update_attributes(:bio => response.person.bio)
+        format.html { redirect_to success_path }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
+
+
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -92,6 +108,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :note, :event, :interest, :company)
+      params.require(:user).permit(:name, :email, :phone, :note, :event, :interest, :company, :avatar, :bio)
     end
 end

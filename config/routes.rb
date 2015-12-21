@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # get 'users/show' => 'users#show'
   get '/users' => 'users#last'
   get '/events' => 'users#events'
+  get '/success' => 'users#success'
+  get '/event/:id' => 'users#event', as: 'event'
 
   resources :users do
     get :autocomplete_user_event, :on => :collection

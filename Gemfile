@@ -34,6 +34,8 @@ gem 'rails_admin'
 
 gem 'faker'
 
+gem 'clearbit'
+
 group :production do
   gem 'pg'
 end

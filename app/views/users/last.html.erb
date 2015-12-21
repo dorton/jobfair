@@ -7,6 +7,9 @@
       Name
     </th>
     <th>
+      Email
+    </th>
+    <th>
       Events
     </th>
     <th>
@@ -18,7 +21,10 @@
 <% @lastusers.each do |user| %>
   <tr>
     <td>
-      <%= mail_to user.email, user.name.titleize %>
+      <%= link_to user.name.titleize, user %>
+    </td>
+    <td>
+      <%= mail_to user.email %>
     </td>
     <td>
     <% user.events.all.each do |event| %>
