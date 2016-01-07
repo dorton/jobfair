@@ -54,18 +54,12 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
 
-require 'clearbit'
-
-Clearbit.key = 'c7a99ea75c8e0b5224b6bc0296d87fc0'
 
     @user = User.where(email: user_params[:email]).first_or_initialize
-    response = Clearbit::Enrichment.find(email: @user.email, stream: true)
 
     respond_to do |format|
       if @user.update(user_params)
         @user.events << Event.last unless @user.events.include?(Event.last)
-        @user.update_attributes(:avatar => response.person.avatar)
-        @user.update_attributes(:bio => response.person.bio)
         format.html { redirect_to success_path }
       else
         format.html { render :new }
