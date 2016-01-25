@@ -8,6 +8,11 @@
 <h1><%= @user.name.titleize %></h1>
 <h3><%= @user.bio %></h3>
 <h4><%= mail_to @user.email %></h4>
+<h4><% if @user.twitter_handle? %><%= "Twitter: " %> <%= link_to @user.twitter_handle, "http://twitter.com/#{@user.twitter_handle}", :target => "_blank" %><% end %></h4>
+<h4><% if @user.linkedin_handle? %><%= 'Linkedin:' %> <%= link_to "http://linkedin.com/#{@user.linkedin_handle}", "http://linkedin.com/#{@user.linkedin_handle}", :target => "_blank" %><% end %></h4>
+<h4><% if @user.employment_domain? %><%= 'Employment: ' %><%= link_to @user.employment_name, "http://#{@user.employment_domain}", :target => "_blank"%><% end %></h4>
+
+
 <table class="table table-striped table-hover table-condensed">
   <tr>
     <th>
