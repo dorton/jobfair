@@ -50,13 +50,16 @@ class UsersController < ApplicationController
   def edit
   end
 
+
+
+
   # POST /users
   # POST /users.json
   def create
 
     require 'clearbit'
 
-    Clearbit.key = 'c7a99ea75c8e0b5224b6bc0296d87fc0'
+    Clearbit.key = ENV["clearbit_tiy"]
 
     @user = User.where(email: user_params[:email]).first_or_initialize
     result = Clearbit::Enrichment.find(email: @user.email, stream: true)
