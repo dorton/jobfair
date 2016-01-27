@@ -59,7 +59,7 @@ class UsersController < ApplicationController
 
     require 'clearbit'
 
-    Clearbit.key = ENV["clearbit_tiy"]
+    Clearbit.key = ENV["clearbit_gmail"]
 
     @user = User.where(email: user_params[:email]).first_or_initialize
     result = Clearbit::Enrichment.find(email: @user.email, stream: true)
