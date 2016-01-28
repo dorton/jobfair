@@ -57,26 +57,26 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
 
-    require 'clearbit'
+    # require 'clearbit'
 
-    Clearbit.key = ENV["clearbit_gmail"]
+    # Clearbit.key = ENV["clearbit_gmailil"]
 
     @user = User.where(email: user_params[:email]).first_or_initialize
-    result = Clearbit::Enrichment.find(email: @user.email, stream: true)
+    # result = Clearbit::Enrichment.find(email: @user.email, stream: true)
 
     respond_to do |format|
       if @user.update(user_params)
         @user.events << Event.last unless @user.events.include?(Event.last)
-        unless result.person.nil?
-          @user.update_attributes(:avatar => result.person.avatar)
-          @user.update_attributes(:bio => result.person.bio)
-          @user.update_attributes(:employment_name => result.person.employment.name)
-          @user.update_attributes(:twitter_handle => result.person.twitter.handle)
-          @user.update_attributes(:linkedin_handle => result.person.linkedin.handle)
-          @user.update_attributes(:employment_domain => result.person.employment.domain)
-          @user.update_attributes(:fuzzy => result.person.fuzzy)
-
-        end
+        # unless result.person.nil?
+          # @user.update_attributes(:avatar => result.person.avatar)
+          # @user.update_attributes(:bio => result.person.bio)
+          # @user.update_attributes(:employment_name => result.person.employment.name)
+          # @user.update_attributes(:twitter_handle => result.person.twitter.handle)
+          # @user.update_attributes(:linkedin_handle => result.person.linkedin.handle)
+          # @user.update_attributes(:employment_domain => result.person.employment.domain)
+          # @user.update_attributes(:fuzzy => result.person.fuzzy)
+        #
+        # end
 
         format.html { redirect_to success_path }
       else
