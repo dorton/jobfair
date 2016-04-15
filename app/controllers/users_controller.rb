@@ -68,15 +68,13 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         @user.events << Event.last unless @user.events.include?(Event.last)
         unless result.person.nil?
-          @user.update_attributes(:avatar => result.person.avatar)
-          @user.update_attributes(:bio => result.person.bio)
-          @user.update_attributes(:employment_name => result.person.employment.name)
-          @user.update_attributes(:twitter_handle => result.person.twitter.handle)
-          @user.update_attributes(:linkedin_handle => result.person.linkedin.handle)
-          @user.update_attributes(:employment_domain => result.person.employment.domain)
-          @user.update_attributes(:fuzzy => result.person.fuzzy)
-
+          @user.update_attributes(avatar: result.person.avatar, bio: result.person.bio, employment_name: result.person.employment.name,
+                                    twitter_handle: result.person.twitter.handle, linkedin_handle: result.person.linkedin.handle,
+                                    employment_domain: result.person.employment.domain, fuzzy: result.person.fuzzy)
         end
+        first_name = @user.name.split(" ").first
+        last_name = @user.name.split(" ").last
+        @user.update_attributes(first_name: first_name, last_name: last_name)
 
         format.html { redirect_to success_path }
       else
