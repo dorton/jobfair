@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125061438) do
+ActiveRecord::Schema.define(version: 20160415031434) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20160125061438) do
     t.string   "linkedin_handle"
     t.string   "employment_domain"
     t.boolean  "fuzzy"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end
