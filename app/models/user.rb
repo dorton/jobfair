@@ -7,6 +7,17 @@ class User < ActiveRecord::Base
 
 	has_many :events, through: :user_events
 
+	def self.to_csv
+    attributes = %w{email last_name first_name interest}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
+      end
+    end
+  end
 
 
 end

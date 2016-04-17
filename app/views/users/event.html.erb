@@ -25,21 +25,7 @@
     </tr>
   <% end %>
 </table>
-<!-- 
-<div class="card-deck-wrapper">
-  <div class="card-deck">
-    <% @event.users.each do |user| %>
-      <div class="card">
-        <% if user.avatar.nil? %>
-        <%= image_tag 'no_avatar.png', class: 'card-img-top', size: '242x200' %>
-        <% else %>
-        <%= image_tag user.avatar, class: 'card-img-top', size: '242x200' %>
-        <% end %>
-        <div class="card-block">
-          <h4 class="card-title"><%= user.name %></h4>
-          <p class="card-text"><%= user.bio %></p>
-        </div>
-      </div>
-      <% end %>
-  </div>
-</div> -->
+
+<%= link_to "Export to CSV", {:format => :csv } %>
+<br>
+<br>
