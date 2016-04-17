@@ -12,7 +12,7 @@
     <p>
   <% @events.each do |event| %>
   <p>
-    <h3><%= event.name %> - <%= event.users.count %> Attendees</h3> 
+    <h3><%= link_to event.name, event_url(event.id), {:format => :csv } %> - <%= event.users.count %> Attendees</h3>
   </p>
       <table border="1">
         <tr>
