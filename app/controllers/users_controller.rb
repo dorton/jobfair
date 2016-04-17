@@ -20,6 +20,12 @@ class UsersController < ApplicationController
 
   def event
     @event = Event.find(params[:id])
+    @users = @event.users
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users.to_csv, filename: "users-#{@event.name}.csv" }
+    end
   end
 
   # GET /users/1
