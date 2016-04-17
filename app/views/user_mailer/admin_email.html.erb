@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+
+    <p>
+      Oh, hi <%= @user.first_name %>!
+    </p>
+
+    <p>
+  <% @events.each do |event| %>
+  <p>
+    <h3><%= event.name %> - <%= event.users.count %> Attendees</h3> 
+  </p>
+      <table border="1">
+        <tr>
+          <td>
+            First name
+          </td>
+          <td>
+            Last name
+          </td>
+          <td>
+            Email
+          </td>
+          <td>
+            Interest
+          </td>
+        </tr>
+        <% event.users.each do |user| %>
+          <tr>
+            <td>
+              <%= user.first_name %>
+            </td>
+            <td>
+              <%= user.last_name %>
+            </td>
+            <td>
+              <%= user.email %>
+            </td>
+            <td>
+              <%= user.interest %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+  <% end %>
+
+    </p>
+
+
+
+  </body>
+</html>
