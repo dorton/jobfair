@@ -11,7 +11,7 @@
       Interest
     </th>
   </tr>
-  <% @event.users.each do |user| %>
+  <% @event.users.order(:interest).each do |user| %>
     <tr>
       <td>
         <%= link_to user.name, user %>

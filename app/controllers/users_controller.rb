@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def event
     @event = Event.find(params[:id])
-    @users = @event.users
+    @users = @event.users.order(:interest)
 
     respond_to do |format|
       format.html

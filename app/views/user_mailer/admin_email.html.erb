@@ -12,7 +12,7 @@
     <p>
   <% @events.each do |event| %>
   <p>
-    <h3><%= link_to event.name, event_url(event.id), {:format => :csv } %> - <%= event.users.count %> Attendees</h3>
+    <h3><%= link_to event.name, event_url(event.id), :format => :csv  %> - <%= event.users.count %> Attendees</h3>
   </p>
       <table border="1">
         <tr>
@@ -29,7 +29,7 @@
             Interest
           </td>
         </tr>
-        <% event.users.each do |user| %>
+        <% event.users.order(:interest).each do |user| %>
           <tr>
             <td>
               <%= user.first_name %>
