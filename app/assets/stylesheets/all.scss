@@ -1,7 +1,7 @@
 @import "font";
 
 
-h1, body {
+h1, h2, h3, h4, body {
   font-family: "TisaPro" !important;
 }
 
@@ -11,4 +11,8 @@ h1, body {
 
 .red_font {
   color: rgba(255,0,0,0.75);
+}
+
+div.mdl-layout__drawer-button {
+  color: #333;
 }
