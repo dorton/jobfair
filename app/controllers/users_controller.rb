@@ -63,21 +63,21 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
 
-    require 'clearbit'
+    # require 'clearbit'
 
-    Clearbit.key = ENV["clearbit_gmail"]
+    # Clearbit.key = ENV["clearbit_gmail"]
 
     @user = User.where(email: user_params[:email]).first_or_initialize
-    result = Clearbit::Enrichment.find(email: @user.email, stream: true)
+    # result = Clearbit::Enrichment.find(email: @user.email, stream: true)
 
     respond_to do |format|
       if @user.update(user_params)
         @user.events << Event.last unless @user.events.include?(Event.last)
-        unless result.person.nil?
-          @user.update_attributes(avatar: result.person.avatar, bio: result.person.bio, employment_name: result.person.employment.name,
-                                    twitter_handle: result.person.twitter.handle, linkedin_handle: result.person.linkedin.handle,
-                                    employment_domain: result.person.employment.domain, fuzzy: result.person.fuzzy)
-        end
+        # unless result.person.nil?
+          # @user.update_attributes(avatar: result.person.avatar, bio: result.person.bio, employment_name: result.person.employment.name,
+                                    # twitter_handle: result.person.twitter.handle, linkedin_handle: result.person.linkedin.handle,
+                                    # employment_domain: result.person.employment.domain, fuzzy: result.person.fuzzy)
+        # end
         first_name = @user.name.split(" ").first
         last_name = @user.name.split(" ").last
         @user.update_attributes(first_name: first_name, last_name: last_name)

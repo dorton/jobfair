@@ -26,6 +26,9 @@ def create_user
   user.name = Faker::Name.name
   user.email = Faker::Internet.email
   user.interest = ['Interested in becomming a student', 'Interested in learning more about tiy', 'Just here for the free food/learning'].sample
+  first_name = user.name.split(" ").first
+  last_name = user.name.split(" ").last
+  user.update_attributes(first_name: first_name, last_name: last_name)
   user.save
   user
 end
