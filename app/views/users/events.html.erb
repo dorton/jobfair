@@ -17,7 +17,7 @@
     <% event.users.each do |user| %>
       <tr>
         <td>
-          <%= link_to user.name.titleize, user %>
+          <%= link_to user.name.titleize, user %><% if user.events.count == 1 %><div class="red_font"> <b><%= "- First Timer -" %></b></div> <% end %>
         </td>
         <td>
           <%= mail_to user.email %>
