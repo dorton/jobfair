@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/events' => 'users#events'
   get '/success' => 'users#success'
   get '/event/:id' => 'users#event', as: 'event'
+  get '/dashboard' => 'users#dashboard'
 
   resources :users do
     get :autocomplete_user_event, :on => :collection

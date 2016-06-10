@@ -32,10 +32,10 @@
         <% event.users.order(:interest).each do |user| %>
           <tr>
             <td>
-              <%= user.first_name %>
+              <%= user.first_name.titleize %>
             </td>
             <td>
-              <%= user.last_name %>
+              <%= user.last_name.titleize %>
             </td>
             <td>
               <%= user.email %>

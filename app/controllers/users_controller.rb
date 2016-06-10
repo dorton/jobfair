@@ -8,6 +8,35 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def dashboard
+    @unique = User.all.count
+
+                 # SELECT "user_events".* FROM "user_events" GROUP BY user_id HAVING count(*) > 1
+    @repeaters = UserEvent.group(:user_id).having("count(*) > 1").to_a.count
+
+    @repeaters_percent = (@repeaters.to_f / @unique.to_f) * 100
+
+    @firsttimers = UserEvent.group(:user_id).having("count(*) = 1").to_a.count
+
+    @firsttimers_percent = (@firsttimers.to_f / @unique.to_f) * 100
+
+    @event_totals = Event.all.count
+
+    @crash_course_count = Event.where("events.name LIKE ?", "%Crash Course%").count
+
+    @demoday_count = Event.where("events.name LIKE ?", "%Demo Day%").count
+
+    @crash_courses_goers = User.joins(:user_events => :event).where("events.name LIKE ?", "%Crash Course%").count
+
+    @demo_day_goers = User.joins(:user_events => :event).where("events.name LIKE ?", "%Demo Day%").count
+
+    @interests = User.pluck('DISTINCT interest')
+
+    @event_names = Event.pluck('DISTINCT name')
+
+
+  end
+
   def last
     @lastusers = User.all.sort_by{ |result| result.updated_at}.reverse
 
@@ -43,7 +72,6 @@ class UsersController < ApplicationController
 
 
   def show
-    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -78,8 +106,8 @@ class UsersController < ApplicationController
                                     # twitter_handle: result.person.twitter.handle, linkedin_handle: result.person.linkedin.handle,
                                     # employment_domain: result.person.employment.domain, fuzzy: result.person.fuzzy)
         # end
-        first_name = @user.name.split(" ").first
-        last_name = @user.name.split(" ").last
+        first_name = @user.name.split(" ").first.titleize
+        last_name = @user.name.split(" ").last.titleize
         @user.update_attributes(first_name: first_name, last_name: last_name)
 
         format.html { redirect_to success_path }
