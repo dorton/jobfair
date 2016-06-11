@@ -39,8 +39,7 @@
       </div>
     </div>
     <div class="panel-body">
-      <p>Students Who Attended Event - <%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</p>
-      <p>Avg. Number of Events - <%= @student_event_avg %> </p>
+      <p>Students Who Attended an Event - <%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</p>
     </div>
   </div>
 </div>
@@ -54,7 +53,7 @@
       </div>
     </div>
     <div class="panel-body">
-      <div id="chart_div"></div>
+      <div id="chart_div" style="width: 500px; height: 300px"></div>
     </div>
   </div>
 </div>
@@ -134,28 +133,49 @@
       // draws it.
       function drawChart1() {
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Motivation');
-        data.addColumn('number', 'Answer');
-
-
-        data.addRows([
+        var data = google.visualization.arrayToDataTable([
+          ['Motivation', 'Count'],
       <% @interests.each do |interest| %>
           ["<%= interest %>", <%= User.where(interest: interest).count %>],
       <% end %>
         ]);
 
+        var options = {
+          title: 'My Daily Activities'
+        };
 
-        // Set chart options
-        var options = {'title':'Visitor Motivation',
-                       'width':500,
-                       'height':300};
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
+
+
+
+
+
+
+      // function drawChart1() {
+      //
+      //   // Create the data table.
+      //   var data = new google.visualization.DataTable();
+      //   data.addColumn('string', 'Motivation');
+      //   data.addColumn('number', 'Answer');
+      //   data.addRows([
+      // <% @interests.each do |interest| %>
+      //     ["<%= interest %>", <%= User.where(interest: interest).count %>],
+      // <% end %>
+      //   ]);
+      //
+      //
+      //   // Set chart options
+      //   var options = {'title':'Visitor Motivation',
+      //                  'width':500,
+      //                  'height':300};
+      //
+      //   // Instantiate and draw our chart, passing in some options.
+      //   var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      //   chart.draw(data, options);
+      // }
 
       // DEMO DAY CHART
       google.charts.setOnLoadCallback(drawDemoday);
@@ -163,7 +183,7 @@
         var data = google.visualization.arrayToDataTable([
           ['Date', 'Demo Day'],
         <% @demo_days.each do |demo| %>
-          ['<%= demo.date %>',  <%= demo.users.count %>],
+          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
         <% end %>
         ]);
         var options = {
@@ -181,7 +201,7 @@
         var data = google.visualization.arrayToDataTable([
           ['Date', 'Rails Crash Course'],
         <% @rails_crash_courses.each do |demo| %>
-          ['<%= demo.date %>',  <%= demo.users.count %>],
+          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
         <% end %>
         ]);
         var options = {
@@ -199,7 +219,7 @@
         var data = google.visualization.arrayToDataTable([
           ['Date', 'JS Crash Course'],
         <% @js_crash_courses.each do |demo| %>
-          ['<%= demo.date %>',  <%= demo.users.count %>],
+          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
         <% end %>
         ]);
         var options = {
@@ -217,7 +237,7 @@
         var data = google.visualization.arrayToDataTable([
           ['Date', 'iOS Crash Course'],
         <% @ios_crash_courses.each do |demo| %>
-          ['<%= demo.date %>',  <%= demo.users.count %>],
+          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
         <% end %>
         ]);
         var options = {
