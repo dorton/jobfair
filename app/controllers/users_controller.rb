@@ -1,40 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   autocomplete :user, :event
+  before_action :authenticate_admin!, :only => [:last, :events, :event]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-  end
-
-  def dashboard
-    @unique = User.all.count
-
-                 # SELECT "user_events".* FROM "user_events" GROUP BY user_id HAVING count(*) > 1
-    @repeaters = UserEvent.group(:user_id).having("count(*) > 1").to_a.count
-
-    @repeaters_percent = (@repeaters.to_f / @unique.to_f) * 100
-
-    @firsttimers = UserEvent.group(:user_id).having("count(*) = 1").to_a.count
-
-    @firsttimers_percent = (@firsttimers.to_f / @unique.to_f) * 100
-
-    @event_totals = Event.all.count
-
-    @crash_course_count = Event.where("events.name LIKE ?", "%Crash Course%").count
-
-    @demoday_count = Event.where("events.name LIKE ?", "%Demo Day%").count
-
-    @crash_courses_goers = User.joins(:user_events => :event).where("events.name LIKE ?", "%Crash Course%").count
-
-    @demo_day_goers = User.joins(:user_events => :event).where("events.name LIKE ?", "%Demo Day%").count
-
-    @interests = User.pluck('DISTINCT interest')
-
-    @event_names = Event.pluck('DISTINCT name')
-
-
+    # @users = User.all
   end
 
   def last
