@@ -46,7 +46,7 @@
         </tr>
         <tr>
           <td>Average number of events attended before conversion</td>
-          <td><%= @student_event_avg %></td>
+          <td><%= number_with_precision(@student_event_avg, precision: 1 )%></td>
         </tr>
       </table>
     </div>

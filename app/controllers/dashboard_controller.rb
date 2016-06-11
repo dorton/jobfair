@@ -43,7 +43,7 @@ class DashboardController < ApplicationController
 
     @conversion_avg = (@students.count.to_f / @unique.to_f) * 100
 
-    @student_event_avg = (User.where(student: true).joins(:events).to_a.count) / @conversion_avg
+    @student_event_avg = (User.where(student: true).joins(:events).to_a.count.to_f) / User.where(student: true).count.to_f
 
   end
 end
