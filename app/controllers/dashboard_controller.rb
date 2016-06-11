@@ -25,19 +25,7 @@ class DashboardController < ApplicationController
 
     @interests = User.pluck('DISTINCT interest').reject(&:blank?)
 
-
     @event_names = Event.pluck('DISTINCT name')
-
-    @demo_days = Event.where(name: "Demo Day").order(date: :asc)
-
-    @rails_crash_courses = Event.where(name: "Rails Crash Course").order(date: :asc)
-
-    @js_crash_courses = Event.where(name: "JS Crash Course").order(date: :asc)
-
-    @ios_crash_courses = Event.where(name: "iOS Crash Course").order(date: :asc)
-
-    @html_crash_courses = Event.where(name: "HTML/CSS Crash Course").order(date: :asc)
-
 
     @students = User.where(student: true)
 

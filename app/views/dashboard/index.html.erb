@@ -68,74 +68,20 @@
 </div>
 
 
-<div class="col-lg-6 ">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>Demo Data Attendance Trend</h4>
+  <% @event_names.each do |name| %>
+    <div class="col-lg-6">
+      <div class="panel panel-default colorTheme smartPanel ">
+        <div class="panel-heading clearfix">
+          <div class="panel-heading-title pull-left">
+            <h4><%= name %> Attendance Trend</h4>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="<%= name %>" style="width: 500px; height: 300px"></div>
+        </div>
       </div>
     </div>
-    <div class="panel-body">
-      <div id="demo_chart" style="width: 500px; height: 300px"></div>
-    </div>
-  </div>
-</div>
-
-
-<div class="col-lg-6">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>Rails Attendance Trend</h4>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div id="rails_chart" style="width: 500px; height: 300px"></div>
-    </div>
-  </div>
-</div>
-
-<div class="col-lg-6">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>JS Attendance Trend</h4>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div id="js_chart" style="width: 500px; height: 300px"></div>
-    </div>
-  </div>
-</div>
-
-<div class="col-lg-6">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>iOS Attendance Trend</h4>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div id="ios_chart" style="width: 500px; height: 300px"></div>
-    </div>
-  </div>
-</div>
-
-<div class="col-lg-6">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>HTML/CSS Attendance Trend</h4>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div id="html_chart" style="width: 500px; height: 300px"></div>
-    </div>
-  </div>
-</div>
-
-
-
+  <% end %>
 
 
 
@@ -144,122 +90,43 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart', 'line']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart1);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart1() {
-
+      // Attendee Motivation
+      google.charts.setOnLoadCallback(drawMotivation);
+      function drawMotivation() {
         var data = google.visualization.arrayToDataTable([
           ['Motivation', 'Count'],
       <% @interests.each do |interest| %>
           ['<%= interest %>', <%= User.where(interest: interest).count %>],
       <% end %>
         ]);
-
         var options = {
           title: 'Visitor Motivation'
         };
-
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-
         chart.draw(data, options);
       }
 
-      // DEMO DAY CHART
-      google.charts.setOnLoadCallback(drawDemoday);
-      function drawDemoday() {
-        var data = google.visualization.arrayToDataTable([
-          ['Date', 'Demo Day'],
-        <% @demo_days.each do |demo| %>
-          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
-        <% end %>
+      // Event Attendance Trends
+      <% @event_names.each do |name| %>
+        google.charts.setOnLoadCallback(<%= name.camelize(:lower).gsub!(/\W/, '') %>);
+        function <%= name.camelize(:lower).gsub!(/\W/, '') %>() {
+          var data = google.visualization.arrayToDataTable([
+            ['Date', '<%= name %>'],
+          <% Event.where(name: name).order(date: :asc).each do |demo| %>
+            ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
+          <% end %>
         ]);
-        var options = {
-          title: '',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('demo_chart'));
-        chart.draw(data, options);
-      }
-
-      // RAILS DAY CHART
-      google.charts.setOnLoadCallback(drawRails);
-      function drawRails() {
-        var data = google.visualization.arrayToDataTable([
-          ['Date', 'Rails Crash Course'],
-        <% @rails_crash_courses.each do |demo| %>
-          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
-        <% end %>
-        ]);
-        var options = {
-          title: '',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('rails_chart'));
-        chart.draw(data, options);
-      }
-
-      // JS DAY CHART
-      google.charts.setOnLoadCallback(drawJavascript);
-      function drawJavascript() {
-        var data = google.visualization.arrayToDataTable([
-          ['Date', 'JS Crash Course'],
-        <% @js_crash_courses.each do |demo| %>
-          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
-        <% end %>
-        ]);
-        var options = {
-          title: '',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('js_chart'));
-        chart.draw(data, options);
-      }
-
-      // iOS DAY CHART
-      google.charts.setOnLoadCallback(drawIos);
-      function drawIos() {
-        var data = google.visualization.arrayToDataTable([
-          ['Date', 'iOS Crash Course'],
-        <% @ios_crash_courses.each do |demo| %>
-          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
-        <% end %>
-        ]);
-        var options = {
-          title: '',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('ios_chart'));
-        chart.draw(data, options);
-      }
-
-      // HTML DAY CHART
-      google.charts.setOnLoadCallback(drawHtml);
-      function drawHtml() {
-        var data = google.visualization.arrayToDataTable([
-          ['Date', 'HTML/CSS Crash Course'],
-        <% @html_crash_courses.each do |demo| %>
-          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
-        <% end %>
-        ]);
-        var options = {
-          title: '',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('html_chart'));
-        chart.draw(data, options);
-      }
+          var options = {
+            title: '',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+          };
+          var chart = new google.visualization.LineChart(document.getElementById('<%= name %>'));
+          chart.draw(data, options);
+        }
+      <% end %>
 
 
     </script>
