@@ -39,7 +39,16 @@
       </div>
     </div>
     <div class="panel-body">
-      <p>Students Who Attended an Event - <%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</p>
+      <table class="table-hover table-sm table-bordered">
+        <tr>
+          <td>Students Who Attended an Event</td>
+          <td><%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</td>
+        </tr>
+        <tr>
+          <td>Average number of events attended before conversion</td>
+          <td><%= @student_event_avg %></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
@@ -112,6 +121,19 @@
   </div>
 </div>
 
+<div class="col-lg-6">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4>HTML/CSS Attendance Trend</h4>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div id="html_chart" style="width: 500px; height: 300px"></div>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -136,46 +158,18 @@
         var data = google.visualization.arrayToDataTable([
           ['Motivation', 'Count'],
       <% @interests.each do |interest| %>
-          ["<%= interest %>", <%= User.where(interest: interest).count %>],
+          ['<%= interest %>', <%= User.where(interest: interest).count %>],
       <% end %>
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: 'Visitor Motivation'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
         chart.draw(data, options);
       }
-
-
-
-
-
-
-      // function drawChart1() {
-      //
-      //   // Create the data table.
-      //   var data = new google.visualization.DataTable();
-      //   data.addColumn('string', 'Motivation');
-      //   data.addColumn('number', 'Answer');
-      //   data.addRows([
-      // <% @interests.each do |interest| %>
-      //     ["<%= interest %>", <%= User.where(interest: interest).count %>],
-      // <% end %>
-      //   ]);
-      //
-      //
-      //   // Set chart options
-      //   var options = {'title':'Visitor Motivation',
-      //                  'width':500,
-      //                  'height':300};
-      //
-      //   // Instantiate and draw our chart, passing in some options.
-      //   var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      //   chart.draw(data, options);
-      // }
 
       // DEMO DAY CHART
       google.charts.setOnLoadCallback(drawDemoday);
@@ -248,5 +242,24 @@
         var chart = new google.visualization.LineChart(document.getElementById('ios_chart'));
         chart.draw(data, options);
       }
+
+      // HTML DAY CHART
+      google.charts.setOnLoadCallback(drawHtml);
+      function drawHtml() {
+        var data = google.visualization.arrayToDataTable([
+          ['Date', 'HTML/CSS Crash Course'],
+        <% @html_crash_courses.each do |demo| %>
+          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
+        <% end %>
+        ]);
+        var options = {
+          title: '',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('html_chart'));
+        chart.draw(data, options);
+      }
+
 
     </script>

@@ -25,6 +25,7 @@ class DashboardController < ApplicationController
 
     @interests = User.pluck('DISTINCT interest').reject(&:blank?)
 
+
     @event_names = Event.pluck('DISTINCT name')
 
     @demo_days = Event.where(name: "Demo Day").order(date: :asc)
@@ -35,11 +36,14 @@ class DashboardController < ApplicationController
 
     @ios_crash_courses = Event.where(name: "iOS Crash Course").order(date: :asc)
 
+    @html_crash_courses = Event.where(name: "HTML/CSS Crash Course").order(date: :asc)
+
+
     @students = User.where(student: true)
 
     @conversion_avg = (@students.count.to_f / @unique.to_f) * 100
 
-    @student_event_avg = User.joins(:events).group("users.id").having("count(users.id) > 1").to_a.count
+    @student_event_avg = (User.where(student: true).joins(:events).to_a.count) / @conversion_avg
 
   end
 end
