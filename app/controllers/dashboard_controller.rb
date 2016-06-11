@@ -5,11 +5,11 @@ class DashboardController < ApplicationController
     @unique = User.all.count
 
                  # SELECT "user_events".* FROM "user_events" GROUP BY user_id HAVING count(*) > 1
-    @repeaters = UserEvent.select("count(*)").group(:user_id).having("count(*) > 1").to_a.count
+    @repeaters = User.joins(:events).group("users.id").having("count(users.id) > 1").to_a.count
 
     @repeaters_percent = (@repeaters.to_f / @unique.to_f) * 100
 
-    @firsttimers = UserEvent.select("count(*)").group(:user_id).having("count(*) = 1").to_a.count
+    @firsttimers = User.joins(:events).group("users.id").having("count(users.id) = 1").to_a.count
 
     @firsttimers_percent = (@firsttimers.to_f / @unique.to_f) * 100
 
@@ -39,7 +39,7 @@ class DashboardController < ApplicationController
 
     @conversion_avg = (@students.count.to_f / @unique.to_f) * 100
 
-    @student_event_avg = UserEvent.select("count(*)").group(:user_id).having("count(*) = 1").to_a.count
+    @student_event_avg = User.joins(:events).group("users.id").having("count(users.id) > 1").to_a.count
 
   end
 end
