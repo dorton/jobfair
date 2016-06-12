@@ -67,6 +67,19 @@
   </div>
 </div>
 
+<div class="col-lg-6 ">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4>Event Average Attendance</h4>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div id="avg_attendance_div" style="width: 500px; height: 300px"></div>
+    </div>
+  </div>
+</div>
+
 
   <% @event_names.each do |name| %>
     <div class="col-lg-6">
@@ -107,6 +120,37 @@
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
+
+      // Event Average Attendance
+
+      google.charts.setOnLoadCallback(drawAttenchart);
+      function drawAttenchart() {
+        var data = google.visualization.arrayToDataTable([
+          ["Event ", "Avg. Attendance", { role: "style" } ],
+        <% @event_names.each do |name| %>
+          ["<%= name %>", <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %>, "#b87333"],
+        <% end %>
+
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+
+        var options = {
+          title: "",
+          width: 500,
+          height: 300,
+          bar: {groupWidth: "95%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("avg_attendance_div"));
+        chart.draw(view, options);
+    }
 
       // Event Attendance Trends
       <% @event_names.each do |name| %>

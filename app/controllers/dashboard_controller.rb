@@ -33,5 +33,7 @@ class DashboardController < ApplicationController
 
     @student_event_avg = (User.where(student: true).joins(:events).to_a.count.to_f) / User.where(student: true).count.to_f
 
+
+
   end
 end
