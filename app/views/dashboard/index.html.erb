@@ -126,9 +126,9 @@
       google.charts.setOnLoadCallback(drawAttenchart);
       function drawAttenchart() {
         var data = google.visualization.arrayToDataTable([
-          ["Event ", "Avg. Attendance", { role: "style" } ],
+          ["Event ", "Avg. Attendance"],
         <% @event_names.each do |name| %>
-          ["<%= name %>", <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %>, "#b87333"],
+          ["<%= name %>", <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %> ],
         <% end %>
 
         ]);
@@ -138,8 +138,8 @@
                          { calc: "stringify",
                            sourceColumn: 1,
                            type: "string",
-                           role: "annotation" },
-                         2]);
+                           role: "annotation" }
+                         ]);
 
         var options = {
           title: "",
@@ -148,7 +148,7 @@
           bar: {groupWidth: "95%"},
           legend: { position: "none" },
         };
-        var chart = new google.visualization.ColumnChart(document.getElementById("avg_attendance_div"));
+        var chart = new google.visualization.BarChart(document.getElementById("avg_attendance_div"));
         chart.draw(view, options);
     }
 
@@ -163,10 +163,12 @@
           <% end %>
         ]);
           var options = {
-            title: '',
+            title: '<%= name %> Average Attendance - <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %>',
             curveType: 'function',
             legend: { position: 'bottom' }
+
           };
+
           var chart = new google.visualization.LineChart(document.getElementById('<%= name %>'));
           chart.draw(data, options);
         }
