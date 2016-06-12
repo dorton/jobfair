@@ -113,11 +113,11 @@
           </tr>
           <% @top_ten.each do |user| %>
             <tr>
-              <td><%= user.name %></td>
+              <td><%= link_to user.name, user_path(user) %></td>
               <td><%= user.events.count %></td>
               <td>
               <% user.events.order(date: :desc).each do |event| %>
-                <%= event.name %> - <%= event.date.strftime('%m-%e-%y') %></br>
+                <%= link_to "#{event.name}" " - " "#{event.date.strftime('%m-%e-%y')}", event_path(event) %></br>
               <% end %></td>
             </tr>
           <% end %>
