@@ -1,86 +1,105 @@
 <div align = "center"><h1>A Few Stats For That Ass</h1></div>
 
-<!-- number of unique attendees -->
-
-<div class="col-lg-4 ">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4><%= link_to "Events", events_path  %></h4>
+  <!-- Events -->
+  <div class="col-lg-4 ">
+    <div class="panel panel-default colorTheme smartPanel ">
+      <div class="panel-heading clearfix">
+        <div class="panel-heading-title pull-left">
+          <h4><%= link_to "Events", events_path  %></h4>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-responsive table-sm">
+          <tr>
+            <td align = "center"><h5>Crash Courses</h5></td>
+            <td align = "center"><h5>Demo Days</h5></td>
+          </tr>
+          <tr>
+            <td align = "center"><h6><%= @crash_course_count %></h6></td>
+            <td align = "center"><h6><%= @demoday_count %></h6></td>
+          </tr>
+        </table>
       </div>
     </div>
-    <div class="panel-body">
-      <p> Crash Courses - <%= @crash_course_count %></p>
-      <p>Demo Days - <%= @demoday_count %></p>
-    </div>
   </div>
-</div>
 
-<div class="col-lg-4 ">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4><%= link_to "Visitors", users_path %></h4>
+  <!-- Visitors -->
+  <div class="col-lg-4 ">
+    <div class="panel panel-default colorTheme smartPanel ">
+      <div class="panel-heading clearfix">
+        <div class="panel-heading-title pull-left">
+          <h4><%= link_to "Visitors", users_path %></h4>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-sm">
+          <tr>
+            <td align = "center"><h5>Unique Visitors</h5></td>
+            <td align = "center"><h5>Repeaters</h5></td>
+            <td align = "center"><h5>One Timers</h5></td>
+          </tr>
+          <tr>
+            <td align = "center"><h6><%= @unique %></h6></td>
+            <td align = "center"><h6><%= @repeaters %> (<%= number_to_percentage(@repeaters_percent, precision: 1) %>)</h6></td>
+            <td align = "center"><h6><%= @firsttimers %> (<%= number_to_percentage(@firsttimers_percent, precision: 1) %>)</h6></td>
+          </tr>
+        </table>
       </div>
     </div>
-    <div class="panel-body">
-      <p>Unique Visitors - <%= @unique %></p>
-      <p>Repeaters - <%= @repeaters %> (<%= number_to_percentage(@repeaters_percent, precision: 1) %>)</p>
-      <p>One Timers - <%= @firsttimers %> (<%= number_to_percentage(@firsttimers_percent, precision: 1) %>)</p>
-    </div>
   </div>
-</div>
 
-<div class="col-lg-4 ">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>Student Conversions</h4>
+  <!-- Student Conversions -->
+  <div class="col-lg-4 ">
+    <div class="panel panel-default colorTheme smartPanel ">
+      <div class="panel-heading clearfix">
+        <div class="panel-heading-title pull-left">
+          <h4>Student Conversions</h4>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-sm ">
+          <tr>
+            <td align = "center"><h5></h5>Students Who Attended an Event</td>
+            <td align = "center"><h5></h5>Average number of events attended before conversion</td>
+          </tr>
+          <tr>
+            <td align = "center"><h6><%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</h6></td>
+            <td align = "center"><h6><%= number_with_precision(@student_event_avg, precision: 1 )%></h6></td>
+          </tr>
+        </table>
       </div>
     </div>
-    <div class="panel-body">
-      <table class="table-hover table-sm table-bordered">
-        <tr>
-          <td>Students Who Attended an Event</td>
-          <td><%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</td>
-        </tr>
-        <tr>
-          <td>Average number of events attended before conversion</td>
-          <td><%= number_with_precision(@student_event_avg, precision: 1 )%></td>
-        </tr>
-      </table>
-    </div>
   </div>
-</div>
 
-
-<div class="col-lg-6 ">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>Visitor Motivation</h4>
+  <!-- Visitor Motivation -->
+  <div class="col-lg-6 ">
+    <div class="panel panel-default colorTheme smartPanel ">
+      <div class="panel-heading clearfix">
+        <div class="panel-heading-title pull-left">
+          <h4>Visitor Motivation</h4>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div id="chart_div" style="width: 500px; height: 300px"></div>
       </div>
     </div>
-    <div class="panel-body">
-      <div id="chart_div" style="width: 500px; height: 300px"></div>
-    </div>
   </div>
-</div>
 
-<div class="col-lg-6 ">
-  <div class="panel panel-default colorTheme smartPanel ">
-    <div class="panel-heading clearfix">
-      <div class="panel-heading-title pull-left">
-        <h4>Event Average Attendance</h4>
+  <!-- Event Average Attendance -->
+  <div class="col-lg-6 ">
+    <div class="panel panel-default colorTheme smartPanel ">
+      <div class="panel-heading clearfix">
+        <div class="panel-heading-title pull-left">
+          <h4>Event Average Attendance</h4>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div id="avg_attendance_div" style="width: 500px; height: 300px"></div>
       </div>
     </div>
-    <div class="panel-body">
-      <div id="avg_attendance_div" style="width: 500px; height: 300px"></div>
-    </div>
   </div>
-</div>
 
-
+  <!-- Attendance Trends -->
   <% @event_names.each do |name| %>
     <div class="col-lg-6">
       <div class="panel panel-default colorTheme smartPanel ">
@@ -96,7 +115,7 @@
     </div>
   <% end %>
 
-
+  <!-- Top Ten Students -->
   <div class="col-lg-12">
     <div class="panel panel-default colorTheme smartPanel ">
       <div class="panel-heading clearfix">
@@ -113,7 +132,7 @@
           </tr>
           <% @top_ten.each do |user| %>
             <tr>
-              <td><%= link_to user.name, user_path(user) %></td>
+              <td><%= link_to user.name.titleize, user_path(user) %></td>
               <td><%= user.events.count %></td>
               <td>
               <% user.events.order(date: :desc).each do |event| %>
@@ -151,7 +170,6 @@
       }
 
       // Event Average Attendance
-
       google.charts.setOnLoadCallback(drawAttenchart);
       function drawAttenchart() {
         var data = google.visualization.arrayToDataTable([
@@ -169,7 +187,6 @@
                            type: "string",
                            role: "annotation" }
                          ]);
-
         var options = {
           title: "",
           width: 500,
