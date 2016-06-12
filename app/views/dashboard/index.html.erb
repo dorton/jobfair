@@ -1,4 +1,4 @@
-<h1>A Few Stats For That Ass</h1>
+<div align = "center"><h1>A Few Stats For That Ass</h1></div>
 
 <!-- number of unique attendees -->
 
@@ -96,6 +96,35 @@
     </div>
   <% end %>
 
+
+  <div class="col-lg-12">
+    <div class="panel panel-default colorTheme smartPanel ">
+      <div class="panel-heading clearfix">
+        <div class="panel-heading-title pull-left">
+          <h4>Top 10 Non-Student Attendees</h4>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered table-hover table-sm table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Number of Events</th>
+            <th>Events</th>
+          </tr>
+          <% @top_ten.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.events.count %></td>
+              <td>
+              <% user.events.order(date: :desc).each do |event| %>
+                <%= event.name %> - <%= event.date.strftime('%m-%e-%y') %></br>
+              <% end %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
 
 
 

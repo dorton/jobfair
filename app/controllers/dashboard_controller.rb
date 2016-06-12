@@ -35,6 +35,8 @@ class DashboardController < ApplicationController
 
     @rand_color = ["#b87333", "silver", "gold", "red", "blue"].sample
 
+    @top_ten = User.joins(:events).group("users.id").order("count(users.id) DESC").first(10)
+
 
 
   end
