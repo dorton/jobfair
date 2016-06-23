@@ -1,0 +1,10 @@
+<%= simple_form_for @event do |f| %>
+
+
+  <%= f.input :name, as: :select, collection: Event.pluck(:name).uniq %>
+  <%= f.input :location,  as: :select, collection: Event.pluck(:location).uniq %>
+
+  <%= f.input :date %>
+
+  <%= f.button :submit %>
+<% end %>

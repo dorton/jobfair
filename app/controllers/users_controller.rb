@@ -14,20 +14,6 @@ class UsersController < ApplicationController
 
   end
 
-  def events
-    @events = Event.all.sort_by{ |result| result.date}.reverse
-  end
-
-
-  def event
-    @event = Event.find(params[:id])
-    @users = @event.users.order(:interest)
-
-    respond_to do |format|
-      format.html
-      format.csv { send_data @users.to_csv, filename: "#{@event.name}.csv" }
-    end
-  end
 
   # GET /users/1
   # GET /users/1.json

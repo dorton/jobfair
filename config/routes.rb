@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :events
+
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
@@ -8,9 +10,9 @@ Rails.application.routes.draw do
   # get 'users/new' => 'users#new'
   # get 'users/show' => 'users#show'
   get '/users' => 'users#last'
-  get '/events' => 'users#events'
+  # get '/events' => 'users#events'
   get '/success' => 'users#success'
-  get '/event/:id' => 'users#event', as: 'event'
+  # get '/event/:id' => 'users#event', as: 'event'
   get '/dashboard' => 'dashboard#index'
 
   resources :users do

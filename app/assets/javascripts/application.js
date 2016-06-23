@@ -16,3 +16,6 @@
 //= require autocomplete-rails
 //= require twitter/bootstrap
 //= require_tree .
+
+
+$('input#event_date_1i').datepicker();

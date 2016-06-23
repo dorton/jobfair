@@ -39,6 +39,8 @@ gem 'faker'
 
 gem 'clearbit'
 
+gem 'simple_form'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
