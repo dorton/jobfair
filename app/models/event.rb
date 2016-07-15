@@ -2,8 +2,10 @@ class Event < ActiveRecord::Base
 
   has_many :user_events
   has_many :users, through: :user_events
+  has_many :locations, through: :locationevents
+  has_many :locationevents
   belongs_to :admin
-  validates_presence_of :date, :location, :name
+  validates_presence_of :date, :name
 
   scope :student, -> { where(student: true)  }
 

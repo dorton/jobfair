@@ -1,41 +1,52 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_admin!
 
   def index
-    @unique = User.all.count
+    if current_admin.super_admin?
+      @user = User.all
+    else
+      @user = User.joins(:locations).where("locations.id = ?", current_admin.locations.last)
+    end
+
+    if current_admin.super_admin?
+      @event = Event.all
+    else
+      @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.last)
+    end
+
+    @unique = @user.all.count
 
                  # SELECT "user_events".* FROM "user_events" GROUP BY user_id HAVING count(*) > 1
-    @repeaters = User.joins(:events).group("users.id").having("count(users.id) > 1").to_a.count
+    @repeaters = @user.joins(:events).group("users.id").having("count(users.id) > 1").to_a.count
 
     @repeaters_percent = (@repeaters.to_f / @unique.to_f) * 100
 
-    @firsttimers = User.joins(:events).group("users.id").having("count(users.id) = 1").to_a.count
+    @firsttimers = @user.joins(:events).group("users.id").having("count(users.id) = 1").to_a.count
 
     @firsttimers_percent = (@firsttimers.to_f / @unique.to_f) * 100
 
-    @event_totals = Event.all.count
+    @event_totals = @event.count
 
-    @crash_course_count = Event.where("events.name LIKE ?", "%Crash Course%").count
+    @crash_course_count = @event.where("events.name LIKE ?", "%Crash Course%").count
 
-    @demoday_count = Event.where("events.name LIKE ?", "%Demo Day%").count
+    @demoday_count = @event.where("events.name LIKE ?", "%Demo Day%").count
 
-    @crash_courses_goers = User.joins(:user_events => :event).where("events.name LIKE ?", "%Crash Course%").count
+    @crash_courses_goers = @user.joins(:user_events => :event).where("events.name LIKE ?", "%Crash Course%").count
 
-    @demo_day_goers = User.joins(:user_events => :event).where("events.name LIKE ?", "%Demo Day%").count
+    @demo_day_goers = @user.joins(:user_events => :event).where("events.name LIKE ?", "%Demo Day%").count
 
-    @interests = User.pluck('DISTINCT interest').reject(&:blank?)
+    @interests = @user.pluck('DISTINCT interest').reject(&:blank?)
 
-    @event_names = Event.pluck('DISTINCT name')
+    @event_names = @event.pluck('DISTINCT name')
 
-    @students = User.where(student: true)
+    @students = @user.where(student: true)
 
     @conversion_avg = (@students.count.to_f / @unique.to_f) * 100
 
-    @student_event_avg = (User.where(student: true).joins(:events).to_a.count.to_f) / User.where(student: true).count.to_f
+    @student_event_avg = (@user.where(student: true).joins(:events).to_a.count.to_f) / @user.where(student: true).count.to_f
 
     @rand_color = ["#b87333", "silver", "gold", "red", "blue"].sample
 
-    @top_ten = User.joins(:events).group("users.id").order("count(users.id) DESC").first(10)
+    @top_ten = @user.joins(:events).group("users.id").order("count(users.id) DESC").first(10)
 
 
 

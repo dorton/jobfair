@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 	has_many :user_events
 
 	has_many :events, through: :user_events
+	has_many :locations, through: :userlocations, dependent: :destroy
+	has_many :userlocations, dependent: :destroy
 
 	def self.to_csv
     attributes = %w{email last_name first_name interest}
