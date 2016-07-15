@@ -225,7 +225,7 @@ DEPENDENCIES
   byebug
   clearbit
   coffee-rails (~> 4.1.0)
-  devise
+  devise (~> 4.2.0)
   faker
   figaro
   jbuilder (~> 2.0)

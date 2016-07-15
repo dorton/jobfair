@@ -33,7 +33,7 @@ gem 'jquery-ui-rails'
 
 gem 'rails4-autocomplete'
 
-gem 'devise'
+gem 'devise', '~> 4.2.0'
 
 gem 'rails_admin'
 
