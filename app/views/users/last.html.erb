@@ -15,6 +15,7 @@
     <th>
       Interest
     </th>
+    <th>Campus</th>
   </tr>
 
 
@@ -28,12 +29,18 @@
     </td>
     <td>
     <% user.events.all.each do |event| %>
-      <%= event.name %><br>
+      <%= link_to event.name, event_path(event) %><br>
     <% end %>
   </td>
 
     <td>
       <%= user.interest %>
+    </td>
+    <td>
+      <% user.locations.each do |location| %>
+        <%= location.city %> <br>
+      <% end %>
+
     </td>
   </tr>
 <% end %>

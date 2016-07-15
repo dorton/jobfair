@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :events
+  resources :locations
 
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
   get '/success' => 'users#success'
   # get '/event/:id' => 'users#event', as: 'event'
   get '/dashboard' => 'dashboard#index'
+  get '/locations/:id/dashboard' => 'dashboard#show', as: :localdashboard
+
 
   resources :users do
     get :autocomplete_user_event, :on => :collection

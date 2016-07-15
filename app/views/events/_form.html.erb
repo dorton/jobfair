@@ -1,8 +1,8 @@
 <%= simple_form_for @event do |f| %>
 
 
-  <%= f.input :name, as: :select, collection: Event.pluck(:name).uniq %>
-  <%= f.input :location,  as: :select, collection: Event.pluck(:location).uniq %>
+  <%= f.input :name %>
+  <%= f.input :event_type, collection: ['Crash Course', 'Open House', 'Demo Day', 'Presentation Day'] %>
 
   <%= f.input :date %>
 

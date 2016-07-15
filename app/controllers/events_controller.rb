@@ -3,8 +3,10 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
 
+
 def index
-  @events = Event.all.order(:date).reverse
+  @campus = current_admin.locations.first
+  @events = Event.joins(:locations).where("locations.id = ?", @campus).all.order(:date).reverse
 end
 
 def show
@@ -27,6 +29,8 @@ def create
 
   respond_to do |format|
     if @event.save
+      @event.locations << current_admin.locations.first
+
       format.html { redirect_to @event, notice: 'event was successfully created.' }
       format.json { render :show, status: :created, location: @event }
     else
@@ -63,11 +67,12 @@ end
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.find(params[:id])
+    @campus = current_admin.locations.first
+    @event = Event.joins(:locations).where("locations.id = ?", @campus).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:name, :date, :location)
+    params.require(:event).permit(:name, :date, :location, location_ids: [])
   end
 end

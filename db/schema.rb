@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623022255) do
+ActiveRecord::Schema.define(version: 20160715055145) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160623022255) do
     t.string   "last_name"
     t.string   "campus"
     t.boolean  "email_option",           default: false
+    t.boolean  "super_admin"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
@@ -43,6 +44,33 @@ ActiveRecord::Schema.define(version: 20160623022255) do
     t.date     "date"
     t.integer  "admin_id"
     t.integer  "user_id"
+    t.string   "event_type"
+  end
+
+  create_table "locationadmins", force: :cascade do |t|
+    t.integer  "location_id"
+    t.integer  "admin_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "locationadmins", ["admin_id"], name: "index_locationadmins_on_admin_id"
+  add_index "locationadmins", ["location_id"], name: "index_locationadmins_on_location_id"
+
+  create_table "locationevents", force: :cascade do |t|
+    t.integer  "location_id"
+    t.integer  "event_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "locationevents", ["event_id"], name: "index_locationevents_on_event_id"
+  add_index "locationevents", ["location_id"], name: "index_locationevents_on_location_id"
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_events", force: :cascade do |t|
@@ -51,6 +79,16 @@ ActiveRecord::Schema.define(version: 20160623022255) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "userlocations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "userlocations", ["location_id"], name: "index_userlocations_on_location_id"
+  add_index "userlocations", ["user_id"], name: "index_userlocations_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

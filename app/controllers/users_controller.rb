@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   autocomplete :user, :event
-  before_action :authenticate_admin!, :only => [:last, :events, :event]
 
   # GET /users
   # GET /users.json
@@ -10,7 +9,8 @@ class UsersController < ApplicationController
   end
 
   def last
-    @lastusers = User.all.sort_by{ |result| result.updated_at}.reverse
+    @campus = current_admin.locations.first
+    @lastusers = User.joins(:locations).where("locations.id = ?", current_admin.locations.first).all.sort_by{ |result| result.updated_at}.reverse
 
   end
 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @event = Event.last.name.split("-").first
+    @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last.name.split("-").first
   end
 
   # GET /users/1/edit
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params)
-        @user.events << Event.last unless @user.events.include?(Event.last)
+        # @user.events << Event.joins(:locations).where("locations.id = ?" current_admin.location.first).last unless @user.events.include?(Event.joins(:admins).where("admins.id = ?" current_admin).last)
         # unless result.person.nil?
           # @user.update_attributes(avatar: result.person.avatar, bio: result.person.bio, employment_name: result.person.employment.name,
                                     # twitter_handle: result.person.twitter.handle, linkedin_handle: result.person.linkedin.handle,
@@ -110,6 +110,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :note, :event, :interest, :company, :avatar, :bio)
+      params.require(:user).permit(:name, :email, :phone, :note, :event, :interest, :company, :avatar, :bio, location_ids: [])
     end
 end

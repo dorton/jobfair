@@ -19,7 +19,7 @@
     <div class="controls">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
-    <%= error_span(@user[:name]) %>
+    <%# error_span(@user[:name]) %>
   </div>
 
   <div class="control-group">
@@ -27,7 +27,7 @@
     <div class="controls">
       <%= f.text_field :email, :class => 'form-control' %>
     </div>
-    <%= error_span(@user[:email]) %>
+    <%# error_span(@user[:email]) %>
   </div>
 
 
@@ -70,7 +70,7 @@
     </div>
 <% else %>
 <% end %>
-    <%= error_span(@user[:email]) %>
+    <%# error_span(@user[:email]) %>
   </div>
 
 <% if Event.last.name.include? "Demo Day" %>
@@ -79,7 +79,7 @@
     <div class="controls">
       <%= f.text_field :company, :class => 'form-control' %>
     </div>
-    <%= error_span(@user[:email]) %>
+    <%# error_span(@user[:email]) %>
   </div>
   <% else %>
   <% end %>
