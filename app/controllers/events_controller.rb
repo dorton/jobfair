@@ -1,12 +1,24 @@
 class EventsController < ApplicationController
 
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :except => :localevents
 
 
 
 def index
   @campus = current_admin.locations.first
-  @events = Event.joins(:locations).where("locations.id = ?", @campus).all.order(:date).reverse
+  if current_admin.super_admin?
+    @events = Event.all
+  else
+    @events = Event.joins(:locations).where("locations.id = ?", @campus).all.order(:date).reverse
+  end
+end
+
+def localevents
+  if current_admin.super_admin?
+    @location = Location.find(params[:id])
+    @events = Event.joins(:locations).where("locations.id = ?", @location)
+  end
 end
 
 def show
@@ -67,8 +79,12 @@ end
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @campus = current_admin.locations.first
-    @event = Event.joins(:locations).where("locations.id = ?", @campus).find(params[:id])
+    if current_admin.super_admin?
+      @event = Event.find(params[:id])
+    else
+      @campus = current_admin.locations.first
+      @event = Event.joins(:locations).where("locations.id = ?", @campus).find(params[:id])
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

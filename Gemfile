@@ -16,6 +16,8 @@ gem "figaro"
 
 gem 'pry'
 
+gem 'cancancan', '~> 1.10'  
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

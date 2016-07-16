@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   autocomplete :user, :event
+  load_and_authorize_resource
+
 
   # GET /users
   # GET /users.json
@@ -9,9 +11,19 @@ class UsersController < ApplicationController
   end
 
   def last
-    @campus = current_admin.locations.first
-    @lastusers = User.joins(:locations).where("locations.id = ?", current_admin.locations.first).all.sort_by{ |result| result.updated_at}.reverse
+    if current_admin.super_admin?
+      @lastusers = User.all.sort_by{ |result| result.updated_at}.reverse
+    else
+      @campus = current_admin.locations.first
+      @lastusers = User.joins(:locations).where("locations.id = ?", current_admin.locations.first).all.sort_by{ |result| result.updated_at}.reverse
+    end
+  end
 
+  def localusers
+    if current_admin.super_admin?
+      @location = Location.find(params[:id])
+      @lastusers = User.joins(:locations).where("locations.id = ?", @location).all.sort_by{ |result| result.updated_at}.reverse
+    end
   end
 
 
@@ -49,21 +61,11 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
 
-    # require 'clearbit'
-
-    # Clearbit.key = ENV["clearbit_gmail"]
-
     @user = User.where(email: user_params[:email]).first_or_initialize
-    # result = Clearbit::Enrichment.find(email: @user.email, stream: true)
 
     respond_to do |format|
       if @user.update(user_params)
-        # @user.events << Event.joins(:locations).where("locations.id = ?" current_admin.location.first).last unless @user.events.include?(Event.joins(:admins).where("admins.id = ?" current_admin).last)
-        # unless result.person.nil?
-          # @user.update_attributes(avatar: result.person.avatar, bio: result.person.bio, employment_name: result.person.employment.name,
-                                    # twitter_handle: result.person.twitter.handle, linkedin_handle: result.person.linkedin.handle,
-                                    # employment_domain: result.person.employment.domain, fuzzy: result.person.fuzzy)
-        # end
+        @user.events << Event.joins(:locations).where("locations.id = ?", current_admin.locations.first).last unless @user.events.include?(Event.joins(:locations).where("locations.id = ?", current_admin.locations.first).last)
         first_name = @user.name.split(" ").first.titleize
         last_name = @user.name.split(" ").last.titleize
         @user.update_attributes(first_name: first_name, last_name: last_name)
