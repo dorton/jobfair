@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   resources :events
-  resources :locations
+  resources :users
+
 
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -10,17 +11,17 @@ Rails.application.routes.draw do
   # get 'users/index' => 'users#index'
   # get 'users/new' => 'users#new'
   # get 'users/show' => 'users#show'
-  get '/users' => 'users#last'
+  # get '/users' => 'users#last'
   # get '/events' => 'users#events'
   get '/success' => 'users#success'
   # get '/event/:id' => 'users#event', as: 'event'
   get '/dashboard' => 'dashboard#index'
   get '/locations/:id/dashboard' => 'dashboard#show', as: :localdashboard
+  get '/locations/:id/events' => 'events#localevents', as: :localevents
+  get '/locations/:id/users' => 'users#localusers', as: :localusers
 
 
-  resources :users do
-    get :autocomplete_user_event, :on => :collection
-  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

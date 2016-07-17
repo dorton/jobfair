@@ -28,6 +28,6 @@ event.locations << campus
 
 
 # Add users to Houston Location
-user = User.all
-location = Location.all.sample
+User.all.each do |user|
 user.locations << Location.where(city: "Houston")
+end

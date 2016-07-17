@@ -14,7 +14,7 @@ end
 create_location
 
 def create_admin
-  houston = Admin.create!(email: 'brian.dorton@theironyard.com', password: '12345678', first_name: "Brian", last_name: "Dorton")
+  houston = Admin.create!(email: 'brian.dorton@theironyard.com', password: '12345678', first_name: "Brian", last_name: "Dorton", super_admin: true)
   austin = Admin.create!(email: 'karly@theironyard.com', password: '12345678', first_name: "Karly", last_name: "Bordon")
   san_antonio = Admin.create!(email: 'hanh@theironyard.com', password: '12345678', first_name: "Hanh", last_name: "Nguyen")
   dallas = Admin.create!(email: 'caitlin@theironyard.com', password: '12345678', first_name: "Caitlin", last_name: "Studley")
@@ -36,13 +36,14 @@ def create_event
   event = Event.new
   event.name = Faker::Company.bs.titleize
   event.date = Faker::Date.backward(240)
+  event.event_type = ['Crash Course', 'Open House', 'Demo Day', 'Presentation Day'].sample
   event.locations << campus
   event.save!
   event
 end
 
 
-70.times do
+50.times do
   create_event
 end
 

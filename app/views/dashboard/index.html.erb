@@ -1,10 +1,5 @@
 <div align = "center"><h1>A Few Stats For That Ass</h1></div>
 
-<% if current_admin.super_admin? %>
-  <% Location.all.each do |location| %>
-    <%= link_to location.city, localdashboard_path(location) %>
-  <% end %>
-<% else %>
 
   <!-- Events -->
   <div class="col-lg-4 ">
@@ -228,4 +223,3 @@
 
 
     </script>
-<% end %>

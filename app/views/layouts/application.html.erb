@@ -39,10 +39,45 @@
     <nav class="mdl-navigation">
     <% if admin_signed_in? %>
       <%= link_to "#{current_admin.first_name} #{current_admin.last_name}", root_path, class: "mdl-navigation__link" %>
-      <%= link_to "Events", events_path, class: "mdl-navigation__link" %>
-      <%= link_to "Users", users_path, class: "mdl-navigation__link" %>
-      <%= link_to "Dashboard", dashboard_path, class: "mdl-navigation__link" %>
-      <%# link_to "Admin", rails_admin_path, class: "mdl-navigation__link" %>
+      <% unless current_admin.super_admin? %>
+        <%= link_to "Events", events_path, class: "mdl-navigation__link" %>
+        <%= link_to "Users", users_path, class: "mdl-navigation__link" %>
+        <%= link_to "Dashboard", dashboard_path, class: "mdl-navigation__link" %>
+      <% end %>
+
+      <% if current_admin.super_admin? %>
+
+        <div id="demo-menu-lower-right" class="dashboard mdl-navigation__link">Dashboards</div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-right">
+          <li><%= link_to "Global Dashboard", dashboard_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
+          <% Location.all.each do |location| %>
+            <li><%= link_to "#{location.city} Dashboard", localdashboard_path(location), class: "mdl-menu__item" %></li>
+          <% end %>
+        </ul>
+
+        <div id="events-menu-lower-right" class="dashboard mdl-navigation__link">Events</div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="events-menu-lower-right">
+          <li><%= link_to "Global Events", events_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
+          <% Location.all.each do |location| %>
+            <li><%= link_to "#{location.city} Events", localevents_path(location), class: "mdl-menu__item" %></li>
+          <% end %>
+        </ul>
+
+        <div id="users-menu-lower-right" class="dashboard mdl-navigation__link">Users</div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="users-menu-lower-right">
+          <li><%= link_to "Global Users", users_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
+          <% Location.all.each do |location| %>
+            <li><%= link_to "#{location.city} Users", localusers_path(location), class: "mdl-menu__item" %></li>
+          <% end %>
+        </ul>
+
+        <hr><br>
+
+        <%= link_to "Admin", rails_admin_path, class: "mdl-navigation__link" %>
+      <% end %>
       <%= link_to "Logout", destroy_admin_session_path, :method => :delete, class: "mdl-navigation__link" %>
     <% else %>
         <%= link_to "Login", new_admin_session_path, class: "mdl-navigation__link" %>
