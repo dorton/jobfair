@@ -7,7 +7,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    # @users = User.all
+    if current_admin.super_admin?
+      @lastusers = User.all.sort_by{ |result| result.updated_at}.reverse
+    else
+      @campus = current_admin.locations.first
+      @lastusers = User.joins(:locations).where("locations.id = ?", current_admin.locations.first).all.sort_by{ |result| result.updated_at}.reverse
+    end
   end
 
   def last
@@ -112,6 +117,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :note, :event, :interest, :company, :avatar, :bio, location_ids: [])
+      params.require(:user).permit!
     end
 end

@@ -44,43 +44,37 @@
         <%= link_to "Users", users_path, class: "mdl-navigation__link" %>
         <%= link_to "Dashboard", dashboard_path, class: "mdl-navigation__link" %>
       <% end %>
+
       <% if current_admin.super_admin? %>
-        <button id="demo-menu-lower-left"
-          class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-          for="demo-menu-lower-left">
+
+        <div id="demo-menu-lower-right" class="dashboard mdl-navigation__link">Dashboards</div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-right">
           <li><%= link_to "Global Dashboard", dashboard_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
           <% Location.all.each do |location| %>
             <li><%= link_to "#{location.city} Dashboard", localdashboard_path(location), class: "mdl-menu__item" %></li>
           <% end %>
         </ul>
-<hr><br>
-        <button id="events-menu-lower-left"
-          class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-          for="events-menu-lower-left">
+
+        <div id="events-menu-lower-right" class="dashboard mdl-navigation__link">Events</div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="events-menu-lower-right">
           <li><%= link_to "Global Events", events_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
           <% Location.all.each do |location| %>
             <li><%= link_to "#{location.city} Events", localevents_path(location), class: "mdl-menu__item" %></li>
           <% end %>
         </ul>
 
+        <div id="users-menu-lower-right" class="dashboard mdl-navigation__link">Users</div>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="users-menu-lower-right">
+          <li><%= link_to "Global Users", users_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
+          <% Location.all.each do |location| %>
+            <li><%= link_to "#{location.city} Users", localusers_path(location), class: "mdl-menu__item" %></li>
+          <% end %>
+        </ul>
+
         <hr><br>
-                <button id="users-menu-lower-left"
-                  class="mdl-button mdl-js-button mdl-button--icon">
-                  <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-                  for="users-menu-lower-left">
-                  <li><%= link_to "Global Users", users_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
-                  <% Location.all.each do |location| %>
-                    <li><%= link_to "#{location.city} Users", localusers_path(location), class: "mdl-menu__item" %></li>
-                  <% end %>
-                </ul>
 
         <%= link_to "Admin", rails_admin_path, class: "mdl-navigation__link" %>
       <% end %>

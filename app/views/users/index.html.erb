@@ -1,48 +1,47 @@
-<% if admin_signed_in? %>
+<h1>Latest Event Goers:</h1>
+<table class="table table-striped table-hover table-condensed">
 
-<%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-<!--       <th><%= model_class.human_attribute_name(:id) %></th>
- -->  <th><%= model_class.human_attribute_name(:event) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:phone) %></th>
-      <th><%= model_class.human_attribute_name(:note) %></th>
-      <!-- <th><%= model_class.human_attribute_name(:created_at) %></th> -->
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-<!--         <td><%= link_to user.id, user_path(user) %></td> -->
-        <td><h5><%= user.event %></h5></td>
-        <td><h5><%= link_to user.name, user_path(user) %></h5></td>
-        <td><h5><%= mail_to user.email %></h5></td>
-        <td><h5><%= user.phone %></h5></td>
-        <td><h5><%= user.note %></h5></td>
-        <!-- <td><%=l user.created_at %></td> -->
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_user_path(user), :class => 'btn btn-default btn-xs' %>
-<!--           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      user_path(user),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %> -->
-        </td>
-      </tr>
+
+  <tr>
+    <th>
+      Name
+    </th>
+    <th>
+      Email
+    </th>
+    <th>
+      Events
+    </th>
+    <th>
+      Interest
+    </th>
+    <th>Campus</th>
+  </tr>
+
+
+<% @lastusers.each do |user| %>
+  <tr>
+    <td>
+      <%= link_to user.name.titleize, user %>
+    </td>
+    <td>
+      <%= mail_to user.email %>
+    </td>
+    <td>
+    <% user.events.all.each do |event| %>
+      <%= link_to event.name, event_path(event) %><br>
     <% end %>
-  </tbody>
-</table>
+  </td>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_user_path,
-            :class => 'btn btn-primary' %>
+    <td>
+      <%= user.interest %>
+    </td>
+    <td>
+      <% user.locations.each do |location| %>
+        <%= location.city %> <br>
+      <% end %>
 
+    </td>
+  </tr>
 <% end %>
+</table>
