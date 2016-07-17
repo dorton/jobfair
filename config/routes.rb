@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   # get '/event/:id' => 'users#event', as: 'event'
   get '/dashboard' => 'dashboard#index'
   get '/locations/:id/dashboard' => 'dashboard#show', as: :localdashboard
-  get '/locations/:id/events' => 'events#localevents', as: :localevents
-  get '/locations/:id/users' => 'users#localusers', as: :localusers
+  get '/locations/:id/localevents' => 'events#localevents', as: :localevents
+  get '/locations/:id/localusers' => 'locations#localusers', as: :localusers
 
 
 

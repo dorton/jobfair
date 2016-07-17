@@ -24,12 +24,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def localusers
-    if current_admin.super_admin?
-      @location = Location.find(params[:id])
-      @lastusers = User.joins(:locations).where("locations.id = ?", @location).all.sort_by{ |result| result.updated_at}.reverse
-    end
-  end
 
 
   # GET /users/1

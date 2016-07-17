@@ -7,6 +7,13 @@ class LocationsController < ApplicationController
     @locations = Location.all
   end
 
+  def localusers
+    if current_admin.super_admin?
+      @location = Location.find(params[:id])
+      @lastusers = User.joins(:locations).where("locations.id = ?", @location).all.sort_by{ |result| result.updated_at}.reverse
+    end
+  end
+
   # GET /locations/1
   # GET /locations/1.json
   def show
