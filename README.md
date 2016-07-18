@@ -1,4 +1,4 @@
-== README
+## README ##
 
 This is a way to get quantitative data from events to help inform decision making.
 
