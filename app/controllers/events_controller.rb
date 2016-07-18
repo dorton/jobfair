@@ -42,7 +42,7 @@ def create
   respond_to do |format|
     if @event.save
       @event.locations << current_admin.locations.first
-
+      @event.update_attributes(admin: current_admin)
       format.html { redirect_to @event, notice: 'event was successfully created.' }
       format.json { render :show, status: :created, location: @event }
     else
