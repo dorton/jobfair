@@ -2,6 +2,9 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :email_option, inline_label: "I would like to receive an email containing a .csv of attendees after each event, please." %>
   </div>
 
   <div class="form-actions">

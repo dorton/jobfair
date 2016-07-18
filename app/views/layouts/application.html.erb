@@ -38,7 +38,7 @@
     <span class="mdl-layout-title">TIY SignIn™</span>
     <nav class="mdl-navigation">
     <% if admin_signed_in? %>
-      <%= link_to "#{current_admin.first_name} #{current_admin.last_name}", root_path, class: "mdl-navigation__link" %>
+      <%= link_to "#{current_admin.first_name} #{current_admin.last_name}", edit_admin_path(current_admin), class: "mdl-navigation__link" %>
       <% unless current_admin.super_admin? %>
         <%= link_to "Events", events_path, class: "mdl-navigation__link" %>
         <%= link_to "Users", users_path, class: "mdl-navigation__link" %>
