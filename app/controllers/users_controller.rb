@@ -45,8 +45,12 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
-    @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last.name.split("-").first
+    if current_admin.locations.present?
+      @user = User.new
+      @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last.name.split("-").first
+    else
+      redirect_to dashboard_path
+    end
   end
 
   # GET /users/1/edit
