@@ -1,4 +1,13 @@
 <p id="notice"><%= notice %></p>
+<h1><%= @admin.name %></h1>
 
-<%= link_to 'Edit', edit_admin_path(@admin) %> |
-<%= link_to 'Back', admins_path %>
+<h4>Campus:
+<% @admin.locations.each do |location| %>
+  <%= location.city %> <br>
+<% end %>
+</h4>
+<% if @admin.email_option? %>
+  <h4>You have opted in for receiving emails after events. Change that <%= link_to "here", edit_admin_path(@admin)%>.</h4>
+<% else %>
+  <h4>You currently are not receiving emails. Change that <%= link_to "here", edit_admin_path(@admin)%>.</h4>
+<% end %>

@@ -2,10 +2,12 @@ Rails.application.routes.draw do
 
   resources :events
   resources :users
+  resources :admins
+
+  devise_for :admins, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
 
 
-  devise_for :admins
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => '/rails_admin', as: 'rails_admin'
 
 
   # get 'users/index' => 'users#index'
@@ -20,6 +22,10 @@ Rails.application.routes.draw do
   get '/locations/:id/localevents' => 'events#localevents', as: :localevents
   get '/locations/:id/localusers' => 'locations#localusers', as: :localusers
 
+  # get '/:id' => 'admins#show', as: :admin
+  #
+  # get '/:id/edit' => 'admins#edit', as: :edit_admin
+  # patch '/:id' => 'admins#update'
 
 
 

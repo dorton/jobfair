@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:show, :update, :destroy]
 
   # GET /admins
   # GET /admins.json
@@ -14,11 +14,20 @@ class AdminsController < ApplicationController
 
   # GET /admins/new
   def new
-    @admin = Admin.new
+    if current_admin.super_admin?
+      @admin = Admin.new
+    else
+      redirect_to edit_admin_path(current_admin)
+    end
   end
 
   # GET /admins/1/edit
   def edit
+    if current_admin.super_admin?
+      @admin = Admin.find(params[:id])
+    else
+      @admin = current_admin
+    end
   end
 
   # POST /admins
@@ -42,7 +51,7 @@ class AdminsController < ApplicationController
   def update
     respond_to do |format|
       if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+        format.html { redirect_to @admin, notice: 'Successfully updated.' }
         format.json { render :show, status: :ok, location: @admin }
       else
         format.html { render :edit }

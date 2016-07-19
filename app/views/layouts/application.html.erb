@@ -76,7 +76,10 @@
 
         <hr><br>
 
-        <%= link_to "Admin", rails_admin_path, class: "mdl-navigation__link" %>
+        <%= link_to "Ops Staff", admins_path, class: "mdl-navigation__link" %>
+        <% if current_admin.rails_admin? %>
+          <%= link_to "Rails_Admin", rails_admin_path, class: "mdl-navigation__link" %>
+        <% end %>
       <% end %>
       <%= link_to "Logout", destroy_admin_session_path, :method => :delete, class: "mdl-navigation__link" %>
     <% else %>

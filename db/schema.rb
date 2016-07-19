@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715055145) do
+ActiveRecord::Schema.define(version: 20160719004931) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160715055145) do
     t.string   "campus"
     t.boolean  "email_option",           default: false
     t.boolean  "super_admin"
+    t.boolean  "rails_admin"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true

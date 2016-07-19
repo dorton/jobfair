@@ -1,25 +1,18 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Admins</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @admins.each do |admin| %>
-      <tr>
-        <td><%= link_to 'Show', admin %></td>
-        <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% if current_admin.super_admin? %>
+<h1 align="center">Operations Staff</h1>
+<% Location.all.order(:city).each do |location| %>
+  <h2 class="center"><%= location.city %></h2>
+    <% location.admins.order(:last_name).each do |admin| %>
+      <h4><%= link_to admin.name, edit_admin_path(admin) %></h4>
     <% end %>
-  </tbody>
-</table>
+<% end %>
+<h2>Global Staff</h2>
+
 
 <br>
 
 <%= link_to 'New Admin', new_admin_path %>
+<% else %>
+<h2 class="center">You do not belong here.</h2>
+<% end %>

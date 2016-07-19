@@ -4,9 +4,20 @@
   <div class="form-inputs">
     <%= f.input :first_name %>
     <%= f.input :last_name %>
+    <% if @admin.new_record? %>
+      <%= f.input :email %>
+      <%= f.input :password %>
+    <% end %>
     <%= f.input :email_option, inline_label: "I would like to receive an email containing a .csv of attendees after each event, please." %>
+    <% if current_admin.super_admin? %>
+      <%= f.association :locations %>
+    <% end %>
   </div>
 
+<% if @admin.persisted? %>
+<h3><%= link_to "Change your password", edit_admin_registration_path(@admin) %></h3>
+
+<% end %>
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
