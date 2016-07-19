@@ -68,9 +68,9 @@
         <div id="users-menu-lower-right" class="dashboard mdl-navigation__link">Users</div>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
           for="users-menu-lower-right">
-          <li><%= link_to "Global Users", users_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
+          <li><%= link_to "Global Attendees", users_path, class: "mdl-menu__item mdl-menu__item--full-bleed-divider" %></li>
           <% Location.all.each do |location| %>
-            <li><%= link_to "#{location.city} Users", localusers_path(location), class: "mdl-menu__item" %></li>
+            <li><%= link_to "#{location.city} Attendees", localusers_path(location), class: "mdl-menu__item" %></li>
           <% end %>
         </ul>
 
