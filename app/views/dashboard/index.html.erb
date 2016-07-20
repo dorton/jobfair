@@ -10,16 +10,19 @@
         </div>
       </div>
       <div class="panel-body">
-        <table class="table table-responsive table-sm">
-          <tr>
-            <td align = "center"><h5>Crash Courses</h5></td>
-            <td align = "center"><h5>Demo Days</h5></td>
-          </tr>
-          <tr>
-            <td align = "center"><h6><%= @crash_course_count %></h6></td>
-            <td align = "center"><h6><%= @demoday_count %></h6></td>
-          </tr>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <tr>
+              <td align = "center"><h5>Crash Courses</h5></td>
+              <td align = "center"><h5>Demo Days</h5></td>
+            </tr>
+            <tr>
+              <td align = "center"><h6><%= @crash_course_count %></h6></td>
+              <td align = "center"><h6><%= @demoday_count %></h6></td>
+            </tr>
+          </table>
+        </div>
+
       </div>
     </div>
   </div>
@@ -33,18 +36,20 @@
         </div>
       </div>
       <div class="panel-body">
-        <table class="table table-sm">
-          <tr>
-            <td align = "center"><h5>Unique Visitors</h5></td>
-            <td align = "center"><h5>Repeaters</h5></td>
-            <td align = "center"><h5>One Timers</h5></td>
-          </tr>
-          <tr>
-            <td align = "center"><h6><%= @unique %></h6></td>
-            <td align = "center"><h6><%= @repeaters %> (<%= number_to_percentage(@repeaters_percent, precision: 1) %>)</h6></td>
-            <td align = "center"><h6><%= @firsttimers %> (<%= number_to_percentage(@firsttimers_percent, precision: 1) %>)</h6></td>
-          </tr>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <tr>
+              <td align = "center"><h5>Unique Visitors</h5></td>
+              <td align = "center"><h5>Repeaters</h5></td>
+              <td align = "center"><h5>One Timers</h5></td>
+            </tr>
+            <tr>
+              <td align = "center"><h6><%= @unique %></h6></td>
+              <td align = "center"><h6><%= @repeaters %> (<%= number_to_percentage(@repeaters_percent, precision: 1) %>)</h6></td>
+              <td align = "center"><h6><%= @firsttimers %> (<%= number_to_percentage(@firsttimers_percent, precision: 1) %>)</h6></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -58,16 +63,18 @@
         </div>
       </div>
       <div class="panel-body">
-        <table class="table table-sm ">
-          <tr>
-            <td align = "center"><h5></h5>Students Who Attended an Event</td>
-            <td align = "center"><h5></h5>Average number of events attended before conversion</td>
-          </tr>
-          <tr>
-            <td align = "center"><h6><%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</h6></td>
-            <td align = "center"><h6><%= number_with_precision(@student_event_avg, precision: 1 )%></h6></td>
-          </tr>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-sm ">
+            <tr>
+              <td align = "center"><h5></h5>Students Who Attended an Event</td>
+              <td align = "center"><h5></h5>Average number of events attended before conversion</td>
+            </tr>
+            <tr>
+              <td align = "center"><h6><%= @students.count %> (<%= number_to_percentage(@conversion_avg, precision: 1) %> of total visitors)</h6></td>
+              <td align = "center"><h6><%= number_with_precision(@student_event_avg, precision: 1 )%></h6></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -81,7 +88,11 @@
         </div>
       </div>
       <div class="panel-body">
-        <div id="chart_div" style="width: 500px; height: 300px"></div>
+        <div class="table-responsive">
+          <table>
+            <tr><div id="chart_div" style="width: 500px; height: 300px"></div></tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -95,7 +106,11 @@
         </div>
       </div>
       <div class="panel-body">
-        <div id="avg_attendance_div" style="width: 500px; height: 300px"></div>
+        <div class="table-responsive">
+          <table>
+            <tr><div id="avg_attendance_div" style="width: 500px; height: 300px"></div></tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -110,7 +125,11 @@
           </div>
         </div>
         <div class="panel-body">
-          <div id="<%= name %>" style="width: 500px; height: 300px"></div>
+          <div class="table-responsive">
+            <table>
+              <tr><div id="<%= name %>" style="width: 500px; height: 300px"></div></tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -125,23 +144,25 @@
         </div>
       </div>
       <div class="panel-body">
-        <table class="table table-bordered table-hover table-sm table-striped">
-          <tr>
-            <th>Name</th>
-            <th>Number of Events</th>
-            <th>Events</th>
-          </tr>
-          <% @top_ten.each do |user| %>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-sm table-striped">
             <tr>
-              <td><%= link_to user.name.titleize, user_path(user) %></td>
-              <td><%= user.events.count %></td>
-              <td>
-              <% user.events.order(date: :desc).each do |event| %>
-                <%= link_to "#{event.name}" " - " "#{event.date.strftime('%m-%e-%y')}", event_path(event) %></br>
-              <% end %></td>
+              <th>Name</th>
+              <th>Number of Events</th>
+              <th>Events</th>
             </tr>
-          <% end %>
-        </table>
+            <% @top_ten.each do |user| %>
+              <tr>
+                <td><%= link_to user.name.titleize, user_path(user) %></td>
+                <td><%= user.events.count %></td>
+                <td>
+                <% user.events.order(date: :desc).each do |event| %>
+                  <%= link_to "#{event.name}" " - " "#{event.date.strftime('%m-%e-%y')}", event_path(event) %></br>
+                <% end %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
       </div>
     </div>
   </div>

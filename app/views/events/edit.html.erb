@@ -2,7 +2,7 @@
 
 <div class="col-lg-4">
   <%= render 'form' %>
-
-  <%= link_to 'Show', @event %> |
+<br>
+  <%= link_to 'Delete Event', @event, method: :delete, data: { confirm: 'Are you sure?' } %> |
   <%= link_to 'Back', events_path %>
 </div>

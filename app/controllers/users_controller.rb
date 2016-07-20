@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def new
     if current_admin.locations.present?
       @user = User.new
-      @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last.name.split("-").first
+      @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last
     else
       redirect_to dashboard_path
     end

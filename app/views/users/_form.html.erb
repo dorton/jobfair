@@ -1,94 +1,23 @@
-<%= form_for @user, :html => { :class => "form-horizontal user" } do |f| %>
-
-    <% if @user.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <div class="control-group">
-    <%= f.label 'First & Last Name', :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'form-control' %>
-    </div>
-    <%# error_span(@user[:name]) %>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email, :class => 'form-control' %>
-    </div>
-    <%# error_span(@user[:email]) %>
-  </div>
+<%= simple_form_for @user do |f| %>
+<%= f.error_notification %>
 
 
-  <div class="control-group">
-    <%= f.label :interest, :class => 'control-label' %>
+  <%= f.input :name, label: "First & Last Name", error: 'Username is mandatory, please specify one' %>
+  <%= f.input :email, error: 'Email is mandatory, please specify one' %>
 
-<% if Event.last.name.include? "Demo Day" %>
-    <div class="controls">
-      <%= f.radio_button :interest, "I am interested in hiring a student." %>
-      <%= f.label :interest, 'I am interested in hiring a student.' %>
-    </div>
+<% if @event %>
+<% if @event.event_type.include? "Crash Course"  %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', "I'm just here for the free learnin\'."], as: :radio_buttons, error: 'Interest is mandatory, please specify one'   %>
+<% elsif @event.event_type.include? "Open House" %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
+<% elsif @event.event_type.include? "Demo Day" %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in hiring a student.', 'I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', 'I\'m here to support a friend or family member.', 'I\'m just here for the free tacos.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
+<% elsif @event.event_type.include? "Presentation Day" %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in hiring a student.', 'I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', 'I\'m here to support a friend or family member.', 'I\'m just here for the free tacos.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
 <% else %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', "I'm just here for the free learnin\'."], as: :radio_buttons, error: 'Interest is mandatory, please specify one' %>
 <% end %>
-
-    <div class="controls">
-      <%= f.radio_button :interest, "I am interested in possibly becoming a student." %>
-      <%= f.label :interest, 'I am interested in possibly becoming a student.' %>
-    </div>
-    <div class="controls">
-      <%= f.radio_button :interest, 'I am interested in learning more about The Iron Yard.' %>
-      <%= f.label :interest, 'I am interested in learning more about The Iron Yard.' %>
-    </div>
-
-<% if Event.last.name.include? "Demo Day" %>
-    <div class="controls">
-      <%= f.radio_button :interest, 'I\'m here to support a friend or family member.' %>
-      <%= f.label :interest, 'I\'m here to support a friend or family member.' %>
-    </div>
-    <div class="controls">
-      <%= f.radio_button :interest, 'I\'m just here for the free tacos.' %>
-      <%= f.label :interest, 'I\'m just here for the free tacos.' %>
-    </div>
-<% else %>
 <% end %>
-
-<% if Event.last.name.include? "Crash Course" %>
-    <div class="controls">
-      <%= f.radio_button :interest, "I'm just here for the free learnin\'." %>
-      <%= f.label :interest, 'I\'m just here for the free learnin\'.' %>
-    </div>
-<% else %>
-<% end %>
-    <%# error_span(@user[:email]) %>
-  </div>
-
-<% if Event.last.name.include? "Demo Day" %>
-  <div class="control-group">
-    <%= f.label :company, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :company, :class => 'form-control' %>
-    </div>
-    <%# error_span(@user[:email]) %>
-  </div>
-  <% else %>
-  <% end %>
-
-
-  <br>
-
-
-  <%= f.submit "Submit", :class => 'btn btn-primary' %>
-
+<%= f.button :submit, "Sign In" %>
 
 <% end %>

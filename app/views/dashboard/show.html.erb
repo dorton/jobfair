@@ -3,16 +3,17 @@
 <div align = "center"><h1>A Few <%= @location.city %> Stats For That Ass</h1></div>
 
 
-  <!-- Events -->
-  <div class="col-lg-4 ">
-    <div class="panel panel-default colorTheme smartPanel ">
-      <div class="panel-heading clearfix">
-        <div class="panel-heading-title pull-left">
-          <h4><%= link_to "Events", events_path  %></h4>
-        </div>
+<!-- Events -->
+<div class="col-lg-4 ">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4><%= link_to "Events", events_path  %></h4>
       </div>
-      <div class="panel-body">
-        <table class="table table-responsive table-sm">
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-sm">
           <tr>
             <td align = "center"><h5>Crash Courses</h5></td>
             <td align = "center"><h5>Demo Days</h5></td>
@@ -23,18 +24,21 @@
           </tr>
         </table>
       </div>
+
     </div>
   </div>
+</div>
 
-  <!-- Visitors -->
-  <div class="col-lg-4 ">
-    <div class="panel panel-default colorTheme smartPanel ">
-      <div class="panel-heading clearfix">
-        <div class="panel-heading-title pull-left">
-          <h4><%= link_to "Visitors", users_path %></h4>
-        </div>
+<!-- Visitors -->
+<div class="col-lg-4 ">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4><%= link_to "Visitors", users_path %></h4>
       </div>
-      <div class="panel-body">
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
         <table class="table table-sm">
           <tr>
             <td align = "center"><h5>Unique Visitors</h5></td>
@@ -50,16 +54,18 @@
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Student Conversions -->
-  <div class="col-lg-4 ">
-    <div class="panel panel-default colorTheme smartPanel ">
-      <div class="panel-heading clearfix">
-        <div class="panel-heading-title pull-left">
-          <h4>Student Conversions</h4>
-        </div>
+<!-- Student Conversions -->
+<div class="col-lg-4 ">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4>Student Conversions</h4>
       </div>
-      <div class="panel-body">
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
         <table class="table table-sm ">
           <tr>
             <td align = "center"><h5></h5>Students Who Attended an Event</td>
@@ -73,60 +79,74 @@
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Visitor Motivation -->
-  <div class="col-lg-6 ">
-    <div class="panel panel-default colorTheme smartPanel ">
-      <div class="panel-heading clearfix">
-        <div class="panel-heading-title pull-left">
-          <h4>Visitor Motivation</h4>
-        </div>
+<!-- Visitor Motivation -->
+<div class="col-lg-6 ">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4>Visitor Motivation</h4>
       </div>
-      <div class="panel-body">
-        <div id="chart_div" style="width: 500px; height: 300px"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table>
+          <tr><div id="chart_div" style="width: 500px; height: 300px"></div></tr>
+        </table>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Event Average Attendance -->
-  <div class="col-lg-6 ">
-    <div class="panel panel-default colorTheme smartPanel ">
-      <div class="panel-heading clearfix">
-        <div class="panel-heading-title pull-left">
-          <h4>Event Average Attendance</h4>
-        </div>
+<!-- Event Average Attendance -->
+<div class="col-lg-6 ">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4>Event Average Attendance</h4>
       </div>
-      <div class="panel-body">
-        <div id="avg_attendance_div" style="width: 500px; height: 300px"></div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table>
+          <tr><div id="avg_attendance_div" style="width: 500px; height: 300px"></div></tr>
+        </table>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Attendance Trends -->
-  <% @event_names.each do |name| %>
-    <div class="col-lg-6">
-      <div class="panel panel-default colorTheme smartPanel ">
-        <div class="panel-heading clearfix">
-          <div class="panel-heading-title pull-left">
-            <h4><%= name %> Attendance Trend</h4>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div id="<%= name %>" style="width: 500px; height: 300px"></div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-  <!-- Top Ten Students -->
-  <div class="col-lg-12">
+<!-- Attendance Trends -->
+<% @event_names.each do |name| %>
+  <div class="col-lg-6">
     <div class="panel panel-default colorTheme smartPanel ">
       <div class="panel-heading clearfix">
         <div class="panel-heading-title pull-left">
-          <h4>Top 10 Non-Student Attendees</h4>
+          <h4><%= name %> Attendance Trend</h4>
         </div>
       </div>
       <div class="panel-body">
+        <div class="table-responsive">
+          <table>
+            <tr><div id="<%= name %>" style="width: 500px; height: 300px"></div></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Top Ten Students -->
+<div class="col-lg-12">
+  <div class="panel panel-default colorTheme smartPanel ">
+    <div class="panel-heading clearfix">
+      <div class="panel-heading-title pull-left">
+        <h4>Top 10 Non-Student Attendees</h4>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm table-striped">
           <tr>
             <th>Name</th>
@@ -147,84 +167,85 @@
       </div>
     </div>
   </div>
+</div>
 
 
 
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      google.charts.load('current', {'packages':['corechart', 'line']});
+    google.charts.load('current', {'packages':['corechart', 'line']});
 
-      // Attendee Motivation
-      google.charts.setOnLoadCallback(drawMotivation);
-      function drawMotivation() {
-        var data = google.visualization.arrayToDataTable([
-          ['Motivation', 'Count'],
-      <% @interests.each do |interest| %>
-          ["<%= interest.html_safe %>", <%= User.where(interest: interest).count %>],
-      <% end %>
-        ]);
-        var options = {
-          title: 'Visitor Motivation'
-        };
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-
-      // Event Average Attendance
-      google.charts.setOnLoadCallback(drawAttenchart);
-      function drawAttenchart() {
-        var data = google.visualization.arrayToDataTable([
-          ["Event ", "Avg. Attendance"],
-        <% @event_names.each do |name| %>
-          ["<%= name %>", <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %> ],
-        <% end %>
-
-        ]);
-
-        var view = new google.visualization.DataView(data);
-        view.setColumns([0, 1,
-                         { calc: "stringify",
-                           sourceColumn: 1,
-                           type: "string",
-                           role: "annotation" }
-                         ]);
-        var options = {
-          title: "",
-          width: 500,
-          height: 300,
-          bar: {groupWidth: "95%"},
-          legend: { position: "none" },
-        };
-        var chart = new google.visualization.BarChart(document.getElementById("avg_attendance_div"));
-        chart.draw(view, options);
+    // Attendee Motivation
+    google.charts.setOnLoadCallback(drawMotivation);
+    function drawMotivation() {
+      var data = google.visualization.arrayToDataTable([
+        ['Motivation', 'Count'],
+    <% @interests.each do |interest| %>
+        ["<%= interest.html_safe %>", <%= User.where(interest: interest).count %>],
+    <% end %>
+      ]);
+      var options = {
+        title: 'Visitor Motivation'
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
     }
 
-      // Event Attendance Trends
+    // Event Average Attendance
+    google.charts.setOnLoadCallback(drawAttenchart);
+    function drawAttenchart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Event ", "Avg. Attendance"],
       <% @event_names.each do |name| %>
-        google.charts.setOnLoadCallback(<%= name.camelize(:lower).gsub!(/\W/, '') %>);
-        function <%= name.camelize(:lower).gsub!(/\W/, '') %>() {
-          var data = google.visualization.arrayToDataTable([
-            ['Date', '<%= name %>'],
-          <% Event.where(name: name).order(date: :asc).each do |demo| %>
-            ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
-          <% end %>
-        ]);
-          var options = {
-            title: '<%= name %> Average Attendance - <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %>',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-
-          };
-
-          var chart = new google.visualization.LineChart(document.getElementById('<%= name %>'));
-          chart.draw(data, options);
-        }
+        ["<%= name %>", <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %> ],
       <% end %>
 
+      ]);
 
-    </script>
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" }
+                       ]);
+      var options = {
+        title: "",
+        width: 500,
+        height: 300,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("avg_attendance_div"));
+      chart.draw(view, options);
+  }
+
+    // Event Attendance Trends
+    <% @event_names.each do |name| %>
+      google.charts.setOnLoadCallback(<%= name.camelize(:lower).gsub!(/\W/, '') %>);
+      function <%= name.camelize(:lower).gsub!(/\W/, '') %>() {
+        var data = google.visualization.arrayToDataTable([
+          ['Date', '<%= name %>'],
+        <% Event.where(name: name).order(date: :asc).each do |demo| %>
+          ['<%= demo.date.strftime('%m-%e-%y') %>',  <%= demo.users.count %>],
+        <% end %>
+      ]);
+        var options = {
+          title: '<%= name %> Average Attendance - <%= number_with_precision(Event.where(name: name).joins(:users).count.to_f / Event.where(name: name).count.to_f, precision: 1 ) %>',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('<%= name %>'));
+        chart.draw(data, options);
+      }
+    <% end %>
+
+
+  </script>
 
 <% else %>
 

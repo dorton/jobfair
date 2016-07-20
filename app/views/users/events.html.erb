@@ -2,32 +2,34 @@
 
 <% @events.each do |event| %>
   <h2><%= link_to event.name.split("-").first, event %> - <%= event.date.strftime('%m/%d/%Y') %> - <%= event.users.count %> Attendees</h2>
-  <table class="table table-striped table-hover table-condensed">
-    <tr>
-      <th>
-        Name
-      </th>
-      <th>
-        Email
-      </th>
-      <th>
-        Interest
-      </th>
-    </tr>
-    <% event.users.each do |user| %>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-condensed">
       <tr>
-        <td>
-          <%= link_to user.name.titleize, user %><% if user.events.count == 1 %><div class="red_font"> <b><%= "- First Timer -" %></b></div> <% end %>
-        </td>
-        <td>
-          <%= mail_to user.email %>
-        </td>
-        <td>
-          <%= user.interest %>
-        </td>
+        <th>
+          Name
+        </th>
+        <th>
+          Email
+        </th>
+        <th>
+          Interest
+        </th>
       </tr>
-    <% end %>
-  </table>
+      <% event.users.each do |user| %>
+        <tr>
+          <td>
+            <%= link_to user.name.titleize, user %><% if user.events.count == 1 %><div class="red_font"> <b><%= "- First Timer -" %></b></div> <% end %>
+          </td>
+          <td>
+            <%= mail_to user.email %>
+          </td>
+          <td>
+            <%= user.interest %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 
 
 <% end %>
