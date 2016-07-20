@@ -1,9 +1,9 @@
 class Event < ActiveRecord::Base
 
-  has_many :user_events
+  has_many :user_events, dependent: :destroy
   has_many :users, through: :user_events
   has_many :locations, through: :locationevents
-  has_many :locationevents
+  has_many :locationevents, dependent: :destroy
   belongs_to :admin
   validates_presence_of :date, :name
 
