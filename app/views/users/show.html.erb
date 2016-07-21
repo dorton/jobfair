@@ -13,6 +13,7 @@
   <h1><%= @user.name.titleize %></h1>
   <h3><%= @user.bio %></h3>
   <h4><%= mail_to @user.email %></h4>
+  <h4>Current Interest: <i><%= @user.interest %></i></h4>
 
   <%= simple_form_for(@user) do |f| %>
     <%= f.error_notification %>
@@ -39,7 +40,7 @@
   <table class="table table-striped table-hover table-condensed">
     <tr>
       <th>
-        Events Attended
+        Events Attended - <%= @user.event_count %>
       </th>
       <th>
         Event Date
