@@ -31,8 +31,6 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	default_scope -> { order(interest: :asc) }
-
 
 	def self.to_csv
     attributes = %w{email last_name first_name interest event_count crash_course_campaign}

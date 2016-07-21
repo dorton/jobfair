@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  
+
 
   def index
     if current_admin.super_admin?
@@ -45,7 +45,7 @@ class DashboardController < ApplicationController
 
     @rand_color = ["#b87333", "silver", "gold", "red", "blue"].sample
 
-    @top_ten = @user.joins(:events).group("users.id").order("count(users.id) DESC").first(10)
+    @top_ten = @user.where(student: false).joins(:events).group("users.id").order("count(users.id) DESC").first(10)
 
   end
 
@@ -90,7 +90,7 @@ class DashboardController < ApplicationController
 
     @rand_color = ["#b87333", "silver", "gold", "red", "blue"].sample
 
-    @top_ten = @user.joins(:events).group("users.id").order("count(users.id) DESC").first(10)
+    @top_ten = @user.where(student: false).joins(:events).group("users.id").order("count(users.id) DESC").first(10)
 
   end
 

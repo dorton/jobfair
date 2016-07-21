@@ -10,7 +10,7 @@
       <th>Event Count</th>
       <th>Campign</th>
     </tr>
-    <% @event.users.each do |user| %>
+    <% @event.users.order(:interest).each do |user| %>
       <tr>
         <td><%= link_to user.name.titleize, user %></td>
         <td><%= mail_to user.email %></td>

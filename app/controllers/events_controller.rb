@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 def index
   @campus = current_admin.locations.first
   if current_admin.super_admin?
-    @events = Event.all
+    @events = Event.all.order(:date).reverse
   else
     @events = Event.joins(:locations).where("locations.id = ?", @campus).all.order(:date).reverse
   end
