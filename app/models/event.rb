@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
 
 
   def self.to_csv
-    attributes = %w{email last_name first_name interest}
+    attributes = %w{email last_name first_name phone interest}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

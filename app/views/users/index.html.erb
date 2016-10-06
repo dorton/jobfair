@@ -10,6 +10,7 @@
       <th>
         Email
       </th>
+      <th>Phone</th>
       <th>
         Events
       </th>
@@ -28,6 +29,7 @@
       <td>
         <%= mail_to user.email %>
       </td>
+      <td><%= user.phone %></td>
       <td>
       <% user.events.all.each do |event| %>
         <%= link_to event.name, event_path(event) %><br>

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
 
 	def self.to_csv
-    attributes = %w{email last_name first_name interest event_count crash_course_campaign}
+    attributes = %w{email last_name first_name phone interest event_count crash_course_campaign}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
