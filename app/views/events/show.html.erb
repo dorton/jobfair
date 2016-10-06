@@ -6,6 +6,7 @@
     <tr>
       <th>Attendees</th>
       <th>Email</th>
+      <th>Phone</th>
       <th>Interest</th>
       <th>Event Count</th>
       <th>Campign</th>
@@ -14,6 +15,7 @@
       <tr>
         <td><%= link_to user.name.titleize, user %></td>
         <td><%= mail_to user.email %></td>
+        <td><%= user.phone %></td>
         <td><%= user.interest %></td>
         <td><%= user.event_count %></td>
         <td><%= user.crash_course_campaign %></td>
