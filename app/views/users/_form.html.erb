@@ -4,6 +4,8 @@
 
   <%= f.input :name, label: "First & Last Name", error: 'Username is mandatory, please specify one' %>
   <%= f.input :email, error: 'Email is mandatory, please specify one' %>
+  <%= f.input :phone %>
+
 
 <% if @event %>
 <% if @event.event_type.include? "Crash Course"  %>
