@@ -65,14 +65,18 @@ class UsersController < ApplicationController
   def create
 
     @user = User.where(email: user_params[:email]).first_or_initialize
+    @event = Event.joins(:locations).where("locations.id = ?", current_admin.locations.first).last
+    @admin = current_admin
 
     respond_to do |format|
       if @user.update(user_params)
-        @user.events << Event.joins(:locations).where("locations.id = ?", current_admin.locations.first).last unless @user.events.include?(Event.joins(:locations).where("locations.id = ?", current_admin.locations.first).last)
+        @user.events <<  @event unless @user.events.include?(@event)
         @user.locations << current_admin.locations.first
         first_name = @user.name.split(" ").first.titleize
         last_name = @user.name.split(" ").last.titleize
         @user.update_attributes(first_name: first_name, last_name: last_name)
+
+        UserMailer.entry_email(@user, @event, @admin).deliver_later if @event.entryemailattendees?
 
         format.html { redirect_to success_path }
       else
