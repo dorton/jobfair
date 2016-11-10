@@ -39,6 +39,7 @@
     <nav class="mdl-navigation">
     <% if admin_signed_in? %>
       <%= link_to "#{current_admin.first_name} #{current_admin.last_name}", edit_admin_path(current_admin), class: "mdl-navigation__link" %>
+      <%= link_to "Create New Event", new_event_path, class: "mdl-navigation__link" %>
       <% unless current_admin.super_admin? %>
         <%= link_to "Events", events_path, class: "mdl-navigation__link" %>
         <%= link_to "Attendees", users_path, class: "mdl-navigation__link" %>

@@ -13,6 +13,21 @@ class UserMailer < ApplicationMailer
       end
     end
     mail(to: @admin.email, subject: "TIY #{@admin.locations.first.city} Event Attendees")
+  end
 
+  def entry_email(user, event, admin)
+    @user = user
+    @event = event
+    @admin = admin
+    @location = @admin.locations.first
+    if @event.event_type == "Open House"
+      attachments.inline['header.png'] = File.read("app/assets/images/openhouse.png")
+    elsif @event.event_type == "Crash Course"
+      attachments.inline['header.png'] = File.read("app/assets/images/js.png")
+    end
+
+    mail(to: @user.email,
+         reply_to: @admin.email,
+         subject: "Welcome to the #{@event.name} @TheIronYard!")
   end
 end

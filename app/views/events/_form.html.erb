@@ -3,7 +3,10 @@
 
   <%= f.input :name %>
   <%= f.input :event_type, collection: ['Crash Course', 'Open House', 'Demo Day', 'Presentation Day'] %>
-
+  <% if current_admin.locations.first.city == "Houston" %>
+    <%= f.input :link, label: "Add link to TIYO here if available" %>
+    <%= f.input :entryemailattendees, label: "Check here if you would like to attendees to get an email of the above link as they sign in" %>
+  <% end %>
   <%= f.input :date %>
 
   <%= f.button :submit %>
