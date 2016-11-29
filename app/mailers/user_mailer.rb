@@ -34,13 +34,15 @@ class UserMailer < ApplicationMailer
     @event = event
     @admin = admin
     @location = @admin.locations.first
-    if @event.subject == "Open House"
-      @pic = "https://tiy-learn-content.s3.amazonaws.com/f021f960-open-house-2.png"
-    elsif @event.subject == "JS"
-      @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
-    else
-      @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
-    end
+
+    @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
+    # if @event.subject == "Open House"
+    #   @pic = "https://tiy-learn-content.s3.amazonaws.com/f021f960-open-house-2.png"
+    # elsif @event.subject == "JS"
+    #   @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
+    # else
+    #   @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
+    # end
 
     mail(to: @user.email,
          reply_to: @admin.email,
