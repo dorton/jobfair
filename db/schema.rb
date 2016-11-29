@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110170053) do
+ActiveRecord::Schema.define(version: 20161111051958) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20161110170053) do
     t.string   "event_type"
     t.string   "link"
     t.boolean  "entryemailattendees"
+    t.string   "subject"
   end
 
   create_table "locationadmins", force: :cascade do |t|

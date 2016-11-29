@@ -5,7 +5,19 @@ class UserMailer < ApplicationMailer
     @admin = admin
     @admin_location = admin.locations.last
     @events = Event.where("date = ?", Date.today).joins(:locations).where("locations.id = ?", @admin_location)
-
+    @events.map do |event|
+      if event.event_type == "Open House"
+        attachments.inline['header.png'] = File.read("app/assets/images/openhouse.png")
+      elsif event.event_type == "Crash Course" && event.subject == "JS"
+        attachments.inline['header.png'] = File.read("app/assets/images/js.png")
+      elsif event.event_type == "Crash Course" && event.subject == ".NET"
+        attachments.inline['header.png'] = File.read("app/assets/images/dotnet.jpg")
+      elsif event.event_type == "Crash Course" && event.subject == "iOS"
+        attachments.inline['header.png'] = File.read("app/assets/images/dotnet.jpg")
+      else
+        attachments.inline['header.png'] = File.read("app/assets/images/TIY-logo.png")
+      end
+    end
     Location.joins(:events).where("events.date = ?", Date.today).joins(:admins).where("admins.id = ?", @admin).uniq.map do |location|
         location.events.where("events.date = ?", Date.today).map do |event|
         users = event.users.order(:interest)
@@ -15,15 +27,19 @@ class UserMailer < ApplicationMailer
     mail(to: @admin.email, subject: "TIY #{@admin.locations.first.city} Event Attendees")
   end
 
+
+
   def entry_email(user, event, admin)
     @user = user
     @event = event
     @admin = admin
     @location = @admin.locations.first
-    if @event.event_type == "Open House"
-      attachments.inline['header.png'] = File.read("app/assets/images/openhouse.png")
-    elsif @event.event_type == "Crash Course"
-      attachments.inline['header.png'] = File.read("app/assets/images/js.png")
+    if @event.subject == "Open House"
+      @pic = "https://tiy-learn-content.s3.amazonaws.com/f021f960-open-house-2.png"
+    elsif @event.subject == "JS"
+      @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
+    else
+      @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
     end
 
     mail(to: @user.email,
