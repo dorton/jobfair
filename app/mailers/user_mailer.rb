@@ -35,15 +35,19 @@ class UserMailer < ApplicationMailer
     @admin = admin
     @location = @admin.locations.first
 
-    @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
-    # if @event.subject == "Open House"
-    #   @pic = "https://tiy-learn-content.s3.amazonaws.com/f021f960-open-house-2.png"
-    # elsif @event.subject == "JS"
-    #   @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
-    # else
-    #   @pic = "https://tiy-learn-content.s3.amazonaws.com/98baed7f-js-cssshtmljs.jpg"
-    # end
+      if @event.event_type == "Open House"
+        attachments.inline['header.png'] = File.read("app/assets/images/openhouse.png")
+      elsif @event.event_type == "Crash Course" && event.subject == "JS"
+        attachments.inline['header.png'] = File.read("app/assets/images/js.png")
+      elsif @event.event_type == "Crash Course" && event.subject == ".NET"
+        attachments.inline['header.png'] = File.read("app/assets/images/dotnet.jpg")
+      elsif @event.event_type == "Crash Course" && event.subject == "iOS"
+        attachments.inline['header.png'] = File.read("app/assets/images/dotnet.jpg")
+      else
+        attachments.inline['header.png'] = File.read("app/assets/images/TIY-logo.png")
+      end
 
+    
     mail(to: @user.email,
          reply_to: @admin.email,
          subject: "Welcome to the #{@event.name} @TheIronYard!")
