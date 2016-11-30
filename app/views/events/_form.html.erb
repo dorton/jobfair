@@ -2,10 +2,10 @@
 
 
   <%= f.input :name %>
-  <%= f.input :event_type, collection: ['Crash Course', 'Open House', 'Demo Day', 'Presentation Day'] %>
+  <%= f.input :event_type, collection: ['Crash Course', 'Open House', 'Demo Day', 'Presentation Day', 'Other'] %>
   <% if current_admin.locations.first.city == "Houston" %>
-    <%= f.input :subject, collection: ['Open House', 'JS', 'iOS', '.NET', 'HTML-CSS', 'Other'], label: "If Crash course, what subject area?" %>
-    <%= f.input :link, label: "Add link to TIYO here if available" %>
+    <%= f.input :subject, collection: ['Open House', 'JS', 'iOS', '.NET', 'Java', 'HTML-CSS', 'Other'], label: "If Crash course, what subject area?" %>
+    <%= f.input :link, label: "Add link to TIYO here if available", input_html: { value: "http://" } %>
     <%= f.input :entryemailattendees, label: "Check here if you would like to attendees to get an email of the above link as they sign in" %>
   <% end %>
   <%= f.input :date %>

@@ -43,11 +43,13 @@ class UserMailer < ApplicationMailer
         attachments.inline['header.png'] = File.read("app/assets/images/dotnet.jpg")
       elsif @event.event_type == "Crash Course" && event.subject == "iOS"
         attachments.inline['header.png'] = File.read("app/assets/images/dotnet.jpg")
+      elsif @event.event_type == "Crash Course" && event.subject == "HTML-CSS"
+        attachments.inline['header.png'] = File.read("app/assets/images/htmlcss.jpg")
       else
         attachments.inline['header.png'] = File.read("app/assets/images/TIY-logo.png")
       end
 
-    
+
     mail(to: @user.email,
          reply_to: @admin.email,
          subject: "Welcome to the #{@event.name} @TheIronYard!")
