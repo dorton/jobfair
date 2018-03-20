@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= "Welcome to TIY" %></title>
+    <title><%= "Welcome to The Main Event™" %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
@@ -35,7 +35,7 @@
     <div class="mdl-layout__header-row"></div>
   </header>
   <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">TIY SignIn™</span>
+    <span class="mdl-layout-title">SignIn™</span>
     <nav class="mdl-navigation">
     <% if admin_signed_in? %>
       <%= link_to "#{current_admin.first_name} #{current_admin.last_name}", edit_admin_path(current_admin), class: "mdl-navigation__link" %>
@@ -95,7 +95,15 @@
 
           <div align = "center">
             <%=link_to root_path do %>
-              <%= image_tag "TIY-logo.png", size: "160x160" %>
+              <% if admin_signed_in? %>
+                <% if current_admin.locations.first.logo_url? %>
+                  <%= image_tag current_admin.locations.first.logo_url, width: "160" %>
+                <% else %>
+                  <%= image_tag "TIY-logo.png", size: "160x160" %>
+                <% end %>
+              <% else %>
+                <h2>Event Sign In, Yo</h2>
+              <% end %>
             <% end  %>
           </div>
 

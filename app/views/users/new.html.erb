@@ -1,7 +1,7 @@
 <% if current_admin.locations.last.events.present? %>
 
 <div class="page-header">
-  <h2 align ="center">Welcome to <%= Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last.name.split("-").first if @event %> @TheIronYard</h2>
+  <h2 align ="center">Welcome to <%= Event.joins(:locations).where("locations.id = ?", current_admin.locations.last).last.name.split("-").first if @event %></h2>
 </div>
 <div class="row">
   <div class="col-md-3"></div>

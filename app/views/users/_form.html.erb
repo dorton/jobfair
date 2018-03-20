@@ -9,15 +9,15 @@
 
 <% if @event %>
 <% if @event.event_type.include? "Crash Course"  %>
-  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', "I'm just here for the free learnin\'."], as: :radio_buttons, error: 'Interest is mandatory, please specify one'   %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more.', "I'm just here for the free learnin\'."], as: :radio_buttons, error: 'Interest is mandatory, please specify one'   %>
 <% elsif @event.event_type.include? "Open House" %>
-  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
 <% elsif @event.event_type.include? "Demo Day" %>
-  <%= f.input :interest, label: "Interest",  collection: ['I am interested in hiring a student.', 'I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', 'I\'m here to support a friend or family member.', 'I\'m just here for the free tacos.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in hiring a student.', 'I am interested in possibly becoming a student.', 'I am interested in learning more.', 'I\'m here to support a friend or family member.', 'I\'m just here for the free tacos.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
 <% elsif @event.event_type.include? "Presentation Day" %>
-  <%= f.input :interest, label: "Interest",  collection: ['I am interested in hiring a student.', 'I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', 'I\'m here to support a friend or family member.', 'I\'m just here for the free tacos.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in hiring a student.', 'I am interested in possibly becoming a student.', 'I am interested in learning more.', 'I\'m here to support a friend or family member.', 'I\'m just here for the free tacos.'], as: :radio_buttons, error: 'Interest is mandatory, please specify one'  %>
 <% else %>
-  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more about The Iron Yard.', "I'm just here for the free learnin\'."], as: :radio_buttons, error: 'Interest is mandatory, please specify one' %>
+  <%= f.input :interest, label: "Interest",  collection: ['I am interested in possibly becoming a student.', 'I am interested in learning more.', "I'm just here for the free learnin\'."], as: :radio_buttons, error: 'Interest is mandatory, please specify one' %>
 <% end %>
 <% end %>
 <%= f.button :submit, "Sign In" %>

@@ -32,7 +32,7 @@ end
 
 def new
   @event = Event.new
-  @event.location = 'The Iron Yard'
+  @event.location = current_admin.locations.first.company
   @unique = Event.pluck('DISTINCT name')
 end
 
